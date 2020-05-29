@@ -1,0 +1,24 @@
+extends layout
+block append links    
+    link(rel='stylesheet', href='/stylesheets/forms.css')
+
+block content
+    div.container        
+        h1.text-center Sign Up
+        form(method='POST' style="margin-left:15%;margin-right:15%;padding:10px;margin-bottom:5%" action='/users/register').form
+            #form-group
+                label User Name:
+                input.form-control(name='username',type='text')
+            #form-group
+                label Email:
+                input.form-control(name='email',type='text')
+            
+            #form-group
+                label Password:
+                input.form-control(name='password',type='password')    
+
+            #form-group
+                label Confirm Password:
+                input.form-control(name='password2',type='password')    
+            br
+            input.btn.btn-primary(type='submit',value='Submit')              
