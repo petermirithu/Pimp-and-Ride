@@ -1,9 +1,9 @@
 {
-  "name": "application-name",
+  "name": "bemacltd",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nodejs ./bin/www"
+    "start": "node app.js"
   },
   "dependencies": {
     "body-parser": "~1.0.0",
@@ -17,5 +17,9 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.11",
     "static-favicon": "~1.0.0"
+  },
+  "engines": {
+    "node": "12.16.3",
+    "npm": "6.14.5"
   }
 }

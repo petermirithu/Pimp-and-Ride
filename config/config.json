@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
+    "username": "pyra",
+    "password": "lotus",
+    "database": "bemac_ltd",
     "host": "127.0.0.1",
-    "dialect": "mysql",
+    "dialect": "postgres",
     "operatorsAliases": false
   },
   "test": {
@@ -16,11 +16,6 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "operatorsAliases": false
+    "use_env_variable": "DATABASE_URL"
   }
 }
