@@ -1,5 +1,55 @@
-extends layout
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="Content-Type" content="text/html; charset=utf-8")    
+    title= title
+    link(rel="shortcut icon" type="image" href="/images/logo.jpg")    
+    link(rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css")
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
+    link(rel='stylesheet', href='/stylesheets/normalize.min.css')
+    link(rel='stylesheet', href='/stylesheets/animate.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
 
-block content
-  h1= title
-  p Welcome to #{title}
+
+  body    
+    block append content  
+      
+      div#header-wrapper
+        div#header.container-fluid
+          div#logo         
+            a(href="#")
+              img(src="/images/logo.jpg" alt="logo" style="border-radius:50%" width="100px")
+              span BetMac 
+          
+          div#menu
+            ul
+              li.active
+                a(href="/" accesskey="1" title="") Home
+              li
+                a(href="#" onclick="activateabout()") About Us              
+              li
+                a(href="#" accesskey="4" title="") Cart
+              li
+                a(href="#" accesskey="5" title="") Contact               
+              li
+                a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
+              li
+                a(href="#" accesskey="5" title="") Profile    
+              li
+                a(href="#" accesskey="5" title="") Sign Out  
+                
+        div#banner-wrapper
+          div#banner.container
+            div.title
+              h2 Welcome to BetMac LTD
+              span.byline Access customised car parts as well as pimping services just by the click of a button.
+            
+            ul.actions
+              li
+                a(href="#").button Shop Now
+      
+    script(src="/javascripts/jquery.min.js")        
+    script(src="/javascripts/animatedModal.min.js")
+    script(src="/javascripts/scripts.js")
+
