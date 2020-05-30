@@ -14,6 +14,7 @@ var http = require('http')
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var shop = require('./routes/shop');
 
 var app = express();
 
@@ -54,6 +55,7 @@ app.use(function(req,res,next){
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/shop', shop);
 
 
 // passport config

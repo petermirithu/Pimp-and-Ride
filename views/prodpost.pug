@@ -1,0 +1,46 @@
+extends layout
+block append links    
+    link(rel='stylesheet', href='/stylesheets/forms.css')
+
+block content
+    div.container        
+        h1.text-center Add Category
+        form(method='POST' style="margin-left:15%;margin-right:15%;padding:10px;margin-bottom:5%" action='/shop/add/category').form
+            #form-group
+                label Name:
+                input.form-control(name='name',type='text' required)        
+            br
+            input.btn.btn-primary(type='submit',value='Submit')
+
+        hr  
+
+        h1.text-center Post Product
+        form(method='POST' , enctype="multipart/form-data", style="margin-left:15%;margin-right:15%;padding:10px;margin-bottom:5%" action='/shop/add/product').form
+            #form-group
+                label Product Name:
+                input.form-control(name='name',type='text' required)        
+
+            
+            #form-group
+                label Image:
+                input.form-control(name='photo',type='file' required)            
+
+            #form-group
+                label Price:
+                input.form-control(name='price',type='number' required)            
+
+            #form-group
+                label Description:
+                input.form-control(name='description',type='text')            
+            
+            #form-group      
+                label Category:                                                                                           
+                select(name="categoryid").custom-select
+                    option.form-control(value=0) Select a Category                                                                                                                                      
+                    for cate in category   
+                        option.form-control(value=cate.id)=cate.name                                                                                                                                                  
+            br
+            input.btn.btn-primary(type='submit',value='Submit')                        
+
+                
+                  
