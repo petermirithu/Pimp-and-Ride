@@ -31,14 +31,26 @@ html
               li
                 a(href="#" accesskey="4" title="") Cart
               li
-                a(href="#" accesskey="5" title="") Contact               
-              li
-                a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
-              li
-                a(href="#" accesskey="5" title="") Profile    
-              li
-                a(href="#" accesskey="5" title="") Sign Out  
-                
+                a(href="#" accesskey="5" title="") Contact     
+
+              if user
+                li
+                  a(href="/users/profile" accesskey="5" title="") Profile                  
+                li
+                  a(href="/users/logout" accesskey="5" title="") Sign Out  
+              else
+                li
+                  a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
+
+        if successes
+          div.notification                                                 
+            for success in successes
+                div.alert.alert-success #{ success }
+        if errors
+          div.notification                                                 
+            for error, i in errors
+                div.alert.alert-danger #{ error }
+
         div#banner-wrapper
           div#banner.container
             div.title
