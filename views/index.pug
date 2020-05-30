@@ -13,8 +13,7 @@ html
 
 
   body    
-    block content  
-      
+    block content        
       div#header-wrapper
         div#header.container-fluid
           div#logo         
@@ -62,8 +61,42 @@ html
               span.byline Access customised car parts as well as pimping services just by the click of a button.
             
             ul.actions
-              li
-                a(href="#").button Shop Now
+              li                                
+                a(href="#products").button
+                  i.fas.fa-cart-arrow-down
+                  
+
+      div#products
+        div.container
+          div.row
+            if products
+              for prod in products                              
+                div.col
+                  div.page-inner
+                    div.row
+                      div.el-wrapper
+                        div.box-up
+                          img.img(src='/uploads/products/'+prod.image width="50%" alt="product")                                                   
+                          div.img-info
+                            div.info-inner
+                              span.p-name=prod.name
+                              span.p-category=prod.Category.name
+                            
+                            div.a-descri Description : 
+                              span.descri=prod.description
+
+                        div.box-down
+                          div.h-bg
+                            div.h-bg-inner                  
+
+                          a.cart(href="#")
+                            span.price="KSH "+prod.price
+                              span=" "
+                              i.fas.fa-cart-plus
+                            span.add-to-cart
+                              span.txt Add to Cart                                                                      
+                  br            
+                  
 
       div#cartmodal            
         div#btn-close-modal.close-cartmodal
