@@ -1,0 +1,30 @@
+extends layout
+block append links    
+    link(rel='stylesheet', href='/stylesheets/forms.css')
+
+block content
+    div.container        
+        h1.text-center Add to Cart        
+        div.wrapper
+            div.product-img
+                img(src='/uploads/products/'+product.image height="420" width="327")
+            
+            div.product-info
+                div.product-text
+                    h1=product.name
+                    h2=product.description
+                    div.stars                        
+                        i.fas.fa-star 
+                        i.fas.fa-star 
+                        i.fas.fa-star 
+                        i.fas.fa-star 
+                        i.fas.fa-star-half-alt                        
+                    h2="Category: "+product.Category.name
+                    h2="Price: ksh "+product.price
+
+                    form.form-inline(method='POST' action='/shop/add/to/cart')
+                        #form-group                            
+                            input.form-control(name='quantity',type='number' placeholder="Enter Quantity" required)                                
+                            input(name='productId',type='number' style="visibility:hidden" value=product.id required)            
+                        br
+                        input.btn.btn-primary(type='submit',value='Submit')

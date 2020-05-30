@@ -18,9 +18,23 @@ const storage = multer.diskStorage({
 
 var upload = multer({storage: storage})
 
+// gets******************************************************************************
 router.get('/form', async(req, res) => {
     let category = await Category.findAll()
     res.render('prodpost', { title: 'Post',category:category});
+});
+
+router.get('/cartform/:id', async(req, res) => {  
+  let product = await Product.findByPk(req.params.id,{include: [{model: Category,as: 'Category',}]})  
+
+  res.render('addtocart', { title: 'Add to Cart',product:product});
+});
+
+// posts******************************************************************************
+router.post('/add/to/cart', async(req, res) => {  
+  let product = await Product.findByPk(req.body.productId,{include: [{model: Category,as: 'Category',}]})  
+
+  res.render('addtocart', { title: 'Add to Cart'});
 });
 
 router.post('/add/category', function(req, res) {
