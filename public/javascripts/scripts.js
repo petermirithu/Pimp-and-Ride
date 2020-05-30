@@ -3,5 +3,8 @@ $('#menu ul li').click(function(){
     $(this).addClass("active");    
 });
 
-
-        
+$("#cartbadge").animatedModal({
+    animatedIn:'lightSpeedIn',
+    animatedOut:'bounceOutDown',
+    color:'rgba(0,0,0,0.8)',
+})

@@ -7,7 +7,10 @@ html
     block links
       link(rel="shortcut icon" type="image" href="/images/logo.jpg")    
       link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")        
+      link(rel='stylesheet', href='/stylesheets/animate.min.css')
+      link(rel='stylesheet', href='/stylesheets/normalize.min.css')
       link(rel='stylesheet', href='/stylesheets/style.css')
+
   body
     div#header-wrapper
         div#header.container-fluid
@@ -21,11 +24,12 @@ html
               li.active
                 a(href="/" accesskey="1" title="") Home
               li
-                a(href="#" accesskey="2" title="") About Us              
+                a(href="/about" accesskey="2" title="") About Us              
+
               li
-                a(href="#" accesskey="4" title="") Cart
-              li
-                a(href="#" accesskey="5" title="") Contact               
+                a#cartbadge(href="#cartmodal" accesskey="4" title="")
+                  i.fa(style="font-size:24px") &#xf07a;                  
+                  span#cartCount 5              
 
               if user
                 li
@@ -34,8 +38,8 @@ html
                   a(href="/users/logout" accesskey="5" title="") Sign Out  
               else
                 li
-                  a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
-
+                  a(href="/users/signin" accesskey="5" title="Sign In") Sign In                              
+              
     div.notification                                                 
       if successes
           for success in successes
@@ -45,4 +49,37 @@ html
               div.alert.alert-danger #{ error }
     
     block content
-      
+
+    div#cartmodal            
+        div#btn-close-modal.close-cartmodal
+            p close MODAL                
+        div.modal-content(style="background:transparent")                    
+          div.container
+            div.row
+              div.col
+              div.col
+                div.card(style="margin-top:50%")
+                  h6.card-header CART
+                  h6.card-body
+                    p djkdjs
+                    p jsjdk
+              div.col
+
+    div#copyright.container-fluid     
+        p.icons
+          a(href="https://www.instagram.com/?hl=en")
+            i.fab.fa-instagram
+          a(href="https://twitter.com/login?lang=en")
+            i.fab.fa-twitter
+          a(href="https://www.facebook.com/")
+            i.fab.fa-facebook
+          a(href="mailto: peter_mirithu@yahoo.com")
+            i.far.fa-envelope
+        p &copy; 2020. All rights reserved. | Designed by
+          a(href="https://github.com/petermirithu") Peter Mirithu | Software Developer
+
+  
+  script(src="/javascripts/jquery.min.js")        
+  script(src="https://kit.fontawesome.com/8311960bd4.js" crossorigin="anonymous")
+  script(src="/javascripts/animatedModal.min.js")
+  script(src="/javascripts/scripts.js")
