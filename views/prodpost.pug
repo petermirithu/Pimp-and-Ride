@@ -13,6 +13,19 @@ block content
             input.btn.btn-primary(type='submit',value='Submit')
 
         hr  
+        h1.text-center Add delivery place
+        form(method='POST' style="margin-left:15%;margin-right:15%;padding:10px;margin-bottom:5%" action='/shop/add/delivery').form
+            #form-group
+                label Name:
+                input.form-control(name='name',type='text' required)        
+            #form-group
+                label Cost:
+                input.form-control(name='cost',type='number' required)        
+
+            br
+            input.btn.btn-primary(type='submit',value='Submit')
+
+        hr    
 
         h1.text-center Post Product
         form(method='POST' , enctype="multipart/form-data", style="margin-left:15%;margin-right:15%;padding:10px;margin-bottom:5%" action='/shop/add/product').form

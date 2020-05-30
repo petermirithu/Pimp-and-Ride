@@ -3,9 +3,9 @@ var router = express.Router();
 
 const multer = require('multer');
 const User = require("../models").users;
-const Profile = require("../models").profiles;
 const Category = require("../models").category;
 const Product = require("../models").products;
+const Delivery = require("../models").delivery;
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -29,6 +29,15 @@ router.post('/add/category', function(req, res) {
         req.flash('success','Added a Category'),
         res.redirect('/shop/form')                                      
       ).catch(error => res.status(400).send(error));                  
+});
+
+router.post('/add/delivery', function(req, res) {
+  const name = req.body.name;  
+  const cost = req.body.cost;  
+  return Delivery.create({ name:name, cost:cost}).then(
+      req.flash('success','Added a delivery place'),
+      res.redirect('/shop/form')                                      
+    ).catch(error => res.status(400).send(error));                  
 });
 
 router.post('/add/product',upload.single('photo'), async(req, res) => {
