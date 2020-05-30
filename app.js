@@ -5,6 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var expressValidator = require('express-validator');
+var flash = require('connect-flash');
+var session = require('cookie-session');
+const passport = require('passport');
 var db = require('./models/index');
 var http = require('http')
 
@@ -24,8 +28,36 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(expressValidator());
+app.use(session({ cookie: { maxAge: 60000 }, 
+    secret: 'wosdwswdwdwdwqdwqddhjh%$$qwdwssdfsfdsdsfsdfsdfdsfdqdqwot',
+    resave: false, 
+    saveUninitialized: false}));
+// express-messages middleware for flash
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.errors = req.flash("error");
+  res.locals.successes = req.flash("success");
+  next();
+});
+
+// passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(function(req,res,next){
+    if (req.user) {
+        res.locals.user = req.user;        
+    }
+    next();
+});
+
 app.use('/', routes);
 app.use('/users', users);
+
+
+// passport config
+require('./config/passport')(passport);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
