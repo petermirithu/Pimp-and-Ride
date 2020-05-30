@@ -1,0 +1,23 @@
+extends layout
+block append links    
+    link(rel='stylesheet', href='/stylesheets/forms.css')
+
+block content
+    div.container        
+        h1.text-center Update Profile
+        form(method='POST' style="margin-left:15%;margin-right:15%;padding:10px;margin-bottom:5%" action='/users/profile').form            
+            #form-group
+                label First Name:
+                input.form-control(name='fname',type='text')        
+            #form-group
+                label Last Name:
+                input.form-control(name='lname',type='text')                    
+            #form-group
+                label About You:
+                textarea.form-control(name="about", cols="30", rows="5")                 
+            br
+            input.btn.btn-success(type='submit', value='Update')  
+
+
+                
+                  
