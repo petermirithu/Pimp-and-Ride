@@ -26,12 +26,15 @@ html
                 a(href="#" accesskey="4" title="") Cart
               li
                 a(href="#" accesskey="5" title="") Contact               
-              li
-                a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
-              li
-                a(href="#" accesskey="5" title="") Profile    
-              li
-                a(href="#" accesskey="5" title="") Sign Out  
+
+              if user
+                li
+                  a(href="/users/profile" accesskey="5" title="") Profile                  
+                li
+                  a(href="/users/logout" accesskey="5" title="") Sign Out  
+              else
+                li
+                  a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
 
     div.notification                                                 
       if successes
