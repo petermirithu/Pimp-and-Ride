@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  
+    div.profile
+        h1.text-center=user.username+"'s profile"      
+
+    div.container    
+        div.row
+            div.col                
+                div.profilecard
+                    h6.card-header="Username: "+user.username
+                    div.card-body
+                        if profile.profile_pic
+                            img(src='/uploads/profile/'+profile.profile_pic width="80px" style="border-radius:50%" alt="profile")                                       
+                        else
+                            img(src='https://cdn.nohat.cc/thumb/f/720/comvecteezy377227.jpg' width="80px" style="border-radius:50%" alt="porfile")                                           
+
+                        form(method='POST' enctype="multipart/form-data",  action='/users/update/profile/pic')      
+                            #form-group
+                                label Change Profile Pic:                        
+                                input.form-control(name='photo',type='file')   
+                            br
+                            input.btn.btn-danger(type='submit',value='Change')                                                           
+                        
+
+            div.col 
+                div.moreofu
+                    if profile
+                        h5="Full Name: "+profile.firstname+" "+profile.lastname           
+                    h5="Email: "+user.email    
+                    hr                    
+                    h5 About You
+                    if profile
+                        p=profile.about
+                    else
+                        a(href="/update/profile") Add About
+
+                    hr
+                    a.btncool(href="/users/update/profile") Update Profile                
+                    
+                
+

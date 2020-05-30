@@ -1,6 +1,9 @@
 html{
   scroll-behavior: smooth;    
 }
+body{
+  background: #EEF2F7;
+}
 a {
   color: #00B7FF;
 }
@@ -185,4 +188,33 @@ nav ul li a:hover{
         padding: 24px;
         text-align: center;        
   }  
+}
+
+/* profile section */
+
+.btncool {
+  background-color: #f3cc2f;
+  border-radius: 6px;
+  padding:3%;
+  color:black;
+}
+
+.btncool:hover {  
+  background-color: black;
+  color: #f3cc2f;  
+}
+.profilecard{
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12)  
+}
+.moreofu{  
+  padding: 30px 50px 30px 30px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-left: 2px solid rgb(255, 0, 85);
+  margin-left: 10%;
 }

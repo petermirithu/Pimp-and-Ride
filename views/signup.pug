@@ -8,17 +8,17 @@ block content
         form(method='POST' style="margin-left:15%;margin-right:15%;padding:10px;margin-bottom:5%" action='/users/register').form
             #form-group
                 label User Name:
-                input.form-control(name='username',type='text')
+                input.form-control(name='username',type='text' required)
             #form-group
                 label Email:
-                input.form-control(name='email',type='text')
+                input.form-control(name='email',type='email' required)
             
             #form-group
                 label Password:
-                input.form-control(name='password',type='password')    
+                input.form-control(name='password',type='password' required)    
 
             #form-group
                 label Confirm Password:
-                input.form-control(name='password2',type='password')    
+                input.form-control(name='password2',type='password' required)    
             br
             input.btn.btn-primary(type='submit',value='Submit')              
