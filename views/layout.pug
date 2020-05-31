@@ -32,7 +32,7 @@ html
               li
                 a#cartbadge(href="#cartmodal" accesskey="4" title="")
                   i.fa(style="font-size:24px") &#xf07a;                  
-                  span#cartCount 5              
+                  span#cartCount=cart.Cart.length
 
               if user
                 li
@@ -55,18 +55,26 @@ html
 
     div#cartmodal            
         div#btn-close-modal.close-cartmodal
-            p close MODAL                
+          i.fas.fa-times-circle
+          p Exit            
+          h1 Cart    
         div.modal-content(style="background:transparent")                    
           div.container
-            div.row
-              div.col
-              div.col
-                div.card(style="margin-top:50%")
-                  h6.card-header CART
-                  h6.card-body
-                    p djkdjs
-                    p jsjdk
-              div.col
+              if cart       
+                h6.text-center(style="color:white")="Total: ksh "+cart.total                                                   
+                div.wrap
+                  for item in cart.Cart                             
+                    div.box
+                      h5.card-header
+                        b=item.Product.name
+                      div.card-body                                                      
+                        img(src="/uploads/products/"+item.Product.image width="70px")
+                        p="Price: @ ksh "+item.Product.price                        
+                        p="Quantity: "+item.quantity
+                        a(href="#")
+                          i.fas.fa-times-circle Remove
+              else  
+                div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
 
     div#copyright.container-fluid     
         p.icons

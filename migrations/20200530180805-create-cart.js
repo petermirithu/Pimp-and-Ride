@@ -20,10 +20,12 @@ module.exports = {
         type: Sequelize.STRING
       },
       total: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       ordered: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       paymentmethod: {
         type: Sequelize.STRING

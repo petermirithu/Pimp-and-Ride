@@ -5,6 +5,8 @@ const multer = require('multer');
 const User = require("../models").users;
 const Category = require("../models").category;
 const Product = require("../models").products;
+const Cart = require("../models").cart;
+const Order = require("../models").order;
 const Delivery = require("../models").delivery;
 
 const storage = multer.diskStorage({
@@ -21,7 +23,10 @@ var upload = multer({storage: storage})
 // gets******************************************************************************
 router.get('/form', async(req, res) => {
     let category = await Category.findAll()
-    res.render('prodpost', { title: 'Post',category:category});
+    let cart = await Cart.findOne(
+      {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
+      {where:{userId:req.user.id}})        
+    res.render('prodpost', { title: 'Post',category:category,cart:cart});
 });
 
 router.get('/cartform/:id', async(req, res) => {  
@@ -31,10 +36,39 @@ router.get('/cartform/:id', async(req, res) => {
 });
 
 // posts******************************************************************************
-router.post('/add/to/cart', async(req, res) => {  
-  let product = await Product.findByPk(req.body.productId,{include: [{model: Category,as: 'Category',}]})  
+router.post('/add/to/cart', async(req, res) => {    
+  var product = await Product.findByPk(req.body.productId)
 
-  res.render('addtocart', { title: 'Add to Cart'});
+  let existingcart = await Cart.findOne({where: {userId: req.user.id}},{include: [{model: Order,as: 'Order',}]})  
+  
+  if (existingcart){
+    let multiple = parseInt(product.price)*parseInt(req.body.quantity)
+    var sum= existingcart.total+parseInt(multiple)
+    existingcart.total=sum
+    existingcart.save()
+
+    let neworder = await Order.build({productId:req.body.productId,cartId:existingcart.id,quantity:req.body.quantity})
+    neworder.save()
+    req.flash('success','Successfully added to cart'),
+    res.redirect('/')                                      
+  }
+  else{
+    let newcart = await Cart.create({userId:req.user.id})
+
+    let prevcart = await Cart.findOne({where: {userId:req.user.id}})
+        
+    let multiple = parseInt(product.price)*parseInt(req.body.quantity)
+
+    var sum=prevcart.total+parseInt(multiple)
+    prevcart.total=sum
+    prevcart.save()
+
+    let neworder = await Order.build({productId:req.body.productId,cartId:prevcart.id,quantity:req.body.quantity})
+    neworder.save()
+
+    req.flash('success','Successfully added to cart'),
+    res.redirect('/')                                      
+  }  
 });
 
 router.post('/add/category', function(req, res) {

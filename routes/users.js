@@ -5,6 +5,9 @@ const passport = require('passport');
 const multer = require('multer');
 const User = require("../models").users;
 const Profile = require("../models").profiles;
+const Cart = require("../models").cart;
+const Order = require("../models").order;
+const Product = require("../models").products;
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -24,13 +27,19 @@ router.get('/signin', function(req, res) {
   res.render('signin', { title: 'Sign In' });
 });
 
-router.get('/profile',async function(req,res){
+router.get('/profile',async(req,res) => {
   let profile= await Profile.findOne({where: {userId: req.user.id}})
-  res.render('profile',{title:'Profile',profile:profile})
+  let cart = await Cart.findOne(
+    {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
+    {where:{userId:req.user.id}})        
+  res.render('profile',{title:'Profile',profile:profile,cart:cart})
 })
 
-router.get('/update/profile', function(req, res) {
-  res.render('updateprofile', { title: 'Update Profile' });
+router.get('/update/profile', async function(req, res) {
+  let cart = await Cart.findOne(
+    {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
+    {where:{userId:req.user.id}})        
+  res.render('updateprofile', { title: 'Update Profile',cart:cart });
 });
 
 // posts
