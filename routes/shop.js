@@ -35,7 +35,24 @@ router.get('/cartform/:id', async(req, res) => {
   res.render('addtocart', { title: 'Add to Cart',product:product});
 });
 
+router.get('/remove/from/cart/:id', async(req, res) => {  
+  let product = await Product.findByPk(req.params.id)  
+  let usercart = await Cart.findOne({where: {userId:req.user.id}})  
+  let orderitem = await Order.findOne({where:{productId:req.params.id,cartId:usercart.id}})  
+  
+  let deducted = parseInt(product.price)*parseInt(orderitem.quantity)
+  let newsum = parseInt(usercart.total)-deducted
+  usercart.total=newsum
+
+  usercart.save()
+  orderitem.destroy()  
+  
+  req.flash('success','Successfully removed that item from cart'),
+  res.redirect('/')                                      
+});
+
 // posts******************************************************************************
+
 router.post('/add/to/cart', async(req, res) => {    
   var product = await Product.findByPk(req.body.productId)
 

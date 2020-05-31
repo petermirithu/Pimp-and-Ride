@@ -67,7 +67,8 @@ html
                   i.fas.fa-cart-arrow-down
                   
 
-      div#products
+      div#products          
+        h1.text-center Products                        
         div.container
           div.row
             if products
@@ -106,19 +107,23 @@ html
           h1 Cart    
         div.modal-content(style="background:transparent")                    
           div.container
-              if cart       
-                h6.text-center(style="color:white")="Total: ksh "+cart.total                                                   
-                div.wrap
-                  for item in cart.Cart                             
-                    div.box
-                      h5.card-header
-                        b=item.Product.name
-                      div.card-body                                                      
-                        img(src="/uploads/products/"+item.Product.image width="70px")
-                        p="Price: @ ksh "+item.Product.price                        
-                        p="Quantity: "+item.quantity
-                        a(href="#")
-                          i.fas.fa-times-circle Remove
+              if cart
+                if cart.total>0
+                  h6.text-center(style="color:white")="Total: ksh "+cart.total                                                   
+                  div.wrap
+                    for item in cart.Cart                             
+                      div.box
+                        h5.card-header
+                          b=item.Product.name
+                        div.card-body                                                      
+                          img(src="/uploads/products/"+item.Product.image width="70px")
+                          p="Price: @ ksh "+item.Product.price                        
+                          p="Quantity: "+item.quantity                        
+                          a(href="/shop/remove/from/cart/"+item.Product.id)
+                            i.fas.fa-times-circle Remove
+                else
+                  div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
+
               else
                 div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
 
