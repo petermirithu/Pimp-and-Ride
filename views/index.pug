@@ -35,7 +35,10 @@ html
               li
                 a#cartbadge(href="#cartmodal" accesskey="4" title="")
                   i.fa(style="font-size:24px") &#xf07a;                  
-                  span#cartCount=cart.Cart.length
+                  if cart               
+                    span#cartCount=cart.Cart.length
+                  else  
+                    span#cartCount 0
 
               if user
                 li

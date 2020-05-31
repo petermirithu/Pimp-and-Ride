@@ -7,17 +7,23 @@ const Order = require("../models").order;
 
 /* GET home page. */
 router.get('/', async(req, res) => {  
-  let products = await Product.findAll({include: [{model: Category,as: 'Category',}]})
-  let cart = await Cart.findOne(
-    {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-    {where:{userId:req.user.id}})        
+  let products = await Product.findAll({include: [{model: Category,as: 'Category',}]})  
+  var cart=null
+  if (req.user){
+    cart = await Cart.findOne(
+      {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
+      {where:{userId:req.user.id}})        
+  }
   res.render('index', { title: 'BetMac',products:products,cart:cart});
 });
 
 router.get('/about', async(req, res) => {
-  let cart = await Cart.findOne(
-    {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-    {where:{userId:req.user.id}})        
+  var cart=null
+  if (req.user){
+    cart = await Cart.findOne(
+      {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
+      {where:{userId:req.user.id}})        
+  }
   res.render('about', { title: 'About',cart:cart});
 });
 

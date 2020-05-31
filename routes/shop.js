@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var request = require('request');
+var moment = require('moment');
 
 const multer = require('multer');
 const User = require("../models").users;
@@ -155,5 +157,75 @@ router.post('/add/product',upload.single('photo'), async(req, res) => {
         res.redirect('/shop/form')                                      
       ).catch(error => res.status(400).send(error));                              
 });
+
+
+
+function mpesaauth(req,res,next) {
+  let url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+      
+  let auth = Buffer.from("lAfsxS0K6VKQMfA5sM8kbIfj8bhZiAJg:JVAJcOCvzfOKZ74x").toString('base64')  
+
+  request(
+    {
+    url:url,
+    headers:{
+      "Authorization":"Basic "+auth
+    }      
+  },
+  (error,response,body) => {
+    if(error){
+      console.log(error)
+    }
+    else{
+      req.access_token=JSON.parse(body).access_token
+      next()
+    }
+  }
+  )
+}
+
+router.get('/stk', mpesaauth, (req,res) => {
+  let oauth_token = req.access_token  
+  let endpoint = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+  let auth = "Bearer " + oauth_token;
+  
+  let timestamp = moment().format('YYYYMMDDHHmmss')  
+  const password= Buffer.from("174379"+"bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"+timestamp).toString('base64')
+
+  request(
+    {
+      url: endpoint,
+      method: "POST",
+      headers: {
+        "Authorization": auth
+      },
+      json : {
+        "BusinessShortCode": "174379",
+        "Password": password,
+        "Timestamp": timestamp,
+        "TransactionType": "CustomerPayBillOnline",
+        "Amount": "1",
+        "PartyA": "254790476167",
+        "PartyB": "174379",
+        "PhoneNumber": "254790476167",
+        "CallBackURL": "https://c93f765b0995.ngrok.io"+"/shop/betmac_stk_callback",
+        "AccountReference": "BetmacOrderPayment",
+        "TransactionDesc": "Process Activation"
+      }
+    },
+    function(error,response,body){
+      if(error){
+        console.log(error)
+      }
+      res.status(200).json(body)
+    }
+  )
+})
+
+router.post('/betmac_stk_callback', (req,res) => {
+  console.log("***********************")
+  console.log(req.body.stkCallback.CallbackMetadata)
+  console.log("***********************")
+})
 
 module.exports = router;

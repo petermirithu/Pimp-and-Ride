@@ -20,11 +20,23 @@ const storage = multer.diskStorage({
 var upload = multer({storage: storage})
 
 /* GET users . */
-router.get('/signup', function(req, res) {
-  res.render('signup', { title: 'Sign Up' });
+router.get('/signup',async function(req, res) {
+  var cart=null
+  if (req.user){
+    cart = await Cart.findOne(
+      {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
+      {where:{userId:req.user.id}})        
+  }
+  res.render('signup', { title: 'Sign Up',cart:cart });
 });
-router.get('/signin', function(req, res) {
-  res.render('signin', { title: 'Sign In' });
+router.get('/signin', async function(req, res) {
+  var cart=null
+  if (req.user){
+    cart = await Cart.findOne(
+      {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
+      {where:{userId:req.user.id}})        
+  }
+  res.render('signin', { title: 'Sign In',cart:cart });
 });
 
 router.get('/profile',async(req,res) => {
