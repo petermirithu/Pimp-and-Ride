@@ -31,8 +31,20 @@ router.get('/form', async(req, res) => {
 
 router.get('/cartform/:id', async(req, res) => {  
   let product = await Product.findByPk(req.params.id,{include: [{model: Category,as: 'Category',}]})  
+  let cart = await Cart.findOne(
+    {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
+    {where:{userId:req.user.id}})        
+  res.render('addtocart', { title: 'Add to Cart',product:product,cart:cart});
+});
 
-  res.render('addtocart', { title: 'Add to Cart',product:product});
+router.get('/ordersummary', async(req, res) => {    
+  let cart = await Cart.findOne(
+    {include: [{model:Delivery,as:'Delivery'},{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
+    {where:{userId:req.user.id}})        
+  
+  let deliveries = await Delivery.findAll()
+
+  res.render('ordersummary', { title: 'Order Summary',cart:cart,deliveries:deliveries});
 });
 
 router.get('/remove/from/cart/:id', async(req, res) => {  
@@ -51,7 +63,33 @@ router.get('/remove/from/cart/:id', async(req, res) => {
   res.redirect('/')                                      
 });
 
+router.get('/remove/delivery/:id', async(req, res) => {  
+  let place = await Delivery.findByPk(req.params.id)    
+  let usercart = await Cart.findOne({where: {userId: req.user.id}})  
+
+  let deducted = parseInt(usercart.total)-parseInt(place.cost)
+  usercart.total=deducted
+  usercart.deliveryId=null
+  usercart.save()
+  req.flash('success','Succesfuly removed that delivery place from your order')
+  res.redirect('/shop/ordersummary')                                          
+});
+
+
 // posts******************************************************************************
+router.post('/update/cart/', async function(req, res) {
+  let place = await Delivery.findByPk(req.body.deliveryId)    
+  let usercart = await Cart.findOne({where: {userId: req.user.id}})  
+
+  let sum=parseInt(place.cost)+parseInt(usercart.total)
+
+  usercart.total=sum
+  usercart.deliveryId=place.id
+  usercart.save()
+
+  req.flash('success','Succesfuly added a delivery place to your order')
+  res.redirect('/shop/ordersummary')                                          
+});
 
 router.post('/add/to/cart', async(req, res) => {    
   var product = await Product.findByPk(req.body.productId)

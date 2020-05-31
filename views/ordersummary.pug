@@ -1,0 +1,42 @@
+extends layout
+block content
+    div.container        
+        h1.text-center Order Summary
+        h6.text-center="Total to be paid: ksh "+cart.total
+        div.container
+            div.row
+                div.col-md-8
+                    if cart            
+                        div.wrap
+                            for item in cart.Cart                             
+                                div.box
+                                    h5.card-header
+                                        b=item.Product.name
+                                    div.card-body                                                      
+                                        img(src="/uploads/products/"+item.Product.image width="70px")
+                                        p="Price: @ ksh "+item.Product.price                        
+                                        p="Quantity: "+item.quantity                        
+                                        a(href="/shop/remove/from/cart/"+item.Product.id)
+                                            i.fas.fa-times-circle Remove
+                    else
+                        div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                                         
+                            
+                div.col-md-4
+                    if cart.Delivery
+                        h4 Delivery
+                        p="Place: "+cart.Delivery.name
+                        a(href="/shop/remove/delivery/"+cart.Delivery.id)
+                            i.fas.fa-times-circle Remove
+                    else
+                        h4 Do you wish you items to be delivered?                                              
+                        form(method='POST' action='/shop/update/cart/')
+                            #form-group                                                                                                                          
+                                select(name="deliveryId").custom-select
+                                    option.form-control(value=0) Select a delivery place                                                                                                                                      
+                                    for place in deliveries   
+                                        option.form-control(value=place.id)=place.name+" | Cost: ksh "+place.cost
+
+                            br
+                            input.btn.btn-primary(type='submit',value='Submit')                                                             
+                    hr                    
+                    a.btn.btn-warning(href="#") Proceed to Payment

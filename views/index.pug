@@ -31,12 +31,12 @@ html
 
               li
                 a(href="/shop/form" accesskey="2" title="") Post Prod             
-                         
+                       
               li
                 a#cartbadge(href="#cartmodal" accesskey="4" title="")
                   i.fa(style="font-size:24px") &#xf07a;                  
                   span#cartCount=cart.Cart.length
-                  
+
               if user
                 li
                   a(href="/users/profile" accesskey="5" title="") Profile                  
@@ -109,7 +109,8 @@ html
           div.container
               if cart
                 if cart.total>0
-                  h6.text-center(style="color:white")="Total: ksh "+cart.total                                                   
+                  h6.text-center(style="color:white")="Total: ksh "+cart.total
+                  a.text-center.btn.btn-warning(href="/shop/ordersummary", style="margin:auto;display:block;") Proceed to CheckOut                                                   
                   div.wrap
                     for item in cart.Cart                             
                       div.box

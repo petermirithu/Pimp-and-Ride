@@ -63,6 +63,7 @@ html
               if cart     
                 if cart.total>0  
                   h6.text-center(style="color:white")="Total: ksh "+cart.total                                                   
+                  a.text-center.btn.btn-warning(href="/shop/ordersummary", style="margin:auto;display:block;") Proceed to CheckOut                                                   
                   div.wrap
                     for item in cart.Cart                             
                       div.box
