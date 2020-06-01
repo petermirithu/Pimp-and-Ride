@@ -25,7 +25,7 @@ router.get('/signup',async function(req, res) {
   if (req.user){
     cart = await Cart.findOne(
       {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-      {where:{userId:req.user.id}})        
+      {where:{userId:req.user.id,ordered:false}})        
   }
   res.render('signup', { title: 'Sign Up',cart:cart });
 });
@@ -34,7 +34,7 @@ router.get('/signin', async function(req, res) {
   if (req.user){
     cart = await Cart.findOne(
       {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-      {where:{userId:req.user.id}})        
+      {where:{userId:req.user.id,ordered:false}})        
   }
   res.render('signin', { title: 'Sign In',cart:cart });
 });
@@ -43,14 +43,14 @@ router.get('/profile',async(req,res) => {
   let profile= await Profile.findOne({where: {userId: req.user.id}})
   let cart = await Cart.findOne(
     {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-    {where:{userId:req.user.id}})        
+    {where:{userId:req.user.id,ordered:false}})        
   res.render('profile',{title:'Profile',profile:profile,cart:cart})
 })
 
 router.get('/update/profile', async function(req, res) {
   let cart = await Cart.findOne(
     {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-    {where:{userId:req.user.id}})        
+    {where:{userId:req.user.id,ordered:false}})        
   res.render('updateprofile', { title: 'Update Profile',cart:cart });
 });
 

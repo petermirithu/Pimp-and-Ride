@@ -12,7 +12,7 @@ router.get('/', async(req, res) => {
   if (req.user){
     cart = await Cart.findOne(
       {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-      {where:{userId:req.user.id}})        
+      {where:{userId:req.user.id,ordered:false}})        
   }
   res.render('index', { title: 'BetMac',products:products,cart:cart});
 });
@@ -22,7 +22,7 @@ router.get('/about', async(req, res) => {
   if (req.user){
     cart = await Cart.findOne(
       {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-      {where:{userId:req.user.id}})        
+      {where:{userId:req.user.id,ordered:false}})        
   }
   res.render('about', { title: 'About',cart:cart});
 });
