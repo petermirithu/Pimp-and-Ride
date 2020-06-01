@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     deliveryId: DataTypes.INTEGER,
     MerchantRequestID: DataTypes.STRING,
     phoneno: DataTypes.STRING,    
+    mpesa_confirm: DataTypes.BOOLEAN
   }, {});
   cart.associate = function(models) {
     cart.belongsTo(models.users,{foreignKey: 'userId', as: 'User'}),

@@ -253,18 +253,14 @@ router.post('/mpesa/stk', mpesaauth, async (req,res) => {
 })
 
 router.post('/betmac_stk_callback', async (req,res) => {
-  let resultcode = req.Body.stkCallback.ResultCode
+  // amount=req.body.stkCallback.CallbackMetadata.Item[0].Value
+      
+  let resultcode = req.body.stkCallback.ResultCode
   if(resultcode==0){
-    // amount=req.body.stkCallback.CallbackMetadata.Item[0].Value
-    let merchant_id=req.Body.stkCallback.MerchantRequestID  
-    let phone_no=req.Body.stkCallback.CallbackMetadata.Item[4].Value
-    let usercart = await Cart.findOne({where: {MerchantRequestID: merchant_id,ordered:false}})    
-    usercart.paymentmethod="Mpesa"
-    usercart.ordered=true
-    usercart.phoneno=phone_no
 
-    let orderupdate= await Order.update({ paid : true },{ where : { cartId : usercart.id,paid:false }});        
-    
+    let merchant_id=req.body.stkCallback.MerchantRequestID          
+    let usercart = await Cart.findOne({where: {MerchantRequestID: merchant_id,ordered:false}})    
+    usercart.mpesa_confirm=true              
     usercart.save()    
     res.status(200)
   }
