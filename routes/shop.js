@@ -163,7 +163,7 @@ router.post('/add/product',upload.single('photo'), async(req, res) => {
 function mpesaauth(req,res,next) {
   let url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
       
-  let auth = Buffer.from("lAfsxS0K6VKQMfA5sM8kbIfj8bhZiAJg:JVAJcOCvzfOKZ74x").toString('base64')  
+  let auth = Buffer.from(process.env.MPESA_CONSUMER+":"+process.env.MPESA_SECRET_KEY).toString('base64')  
 
   request(
     {
@@ -192,7 +192,7 @@ router.post('/mpesa/stk', mpesaauth, async (req,res) => {
   let auth = "Bearer " + oauth_token;
   
   let timestamp = moment().format('YYYYMMDDHHmmss')  
-  const password= Buffer.from("174379"+"bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"+timestamp).toString('base64')
+  const password= Buffer.from("174379"+process.env.MPESA_AUTH+timestamp).toString('base64')
 
   let numberphone=req.body.phone
   const mpesaphone =numberphone.toString()    
