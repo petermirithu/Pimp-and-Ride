@@ -29,9 +29,11 @@ html
               li
                 a(href="/about") About Us       
 
-              li
-                a(href="/shop/form" accesskey="2" title="") Post Prod             
-                       
+              if user
+                if user.admin==true
+                  li
+                    a(href="/shop/form" accesskey="2" title="") Post Prod             
+                        
               li
                 a#cartbadge(href="#cartmodal" accesskey="4" title="")
                   i.fa(style="font-size:24px") &#xf07a;                  
@@ -71,7 +73,7 @@ html
                   
 
       div#products          
-        h1.text-center Products                        
+        h1.text-center Products                                
         div.container
           div.row
             if products
