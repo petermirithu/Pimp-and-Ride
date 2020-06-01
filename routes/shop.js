@@ -26,30 +26,30 @@ var upload = multer({storage: storage})
 router.get('/form', async(req, res) => {
     let category = await Category.findAll()
     let cart = await Cart.findOne(
-      {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-      {where:{userId:req.user.id,ordered:false}})        
+      {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
+      where:{userId:req.user.id,ordered:false}})        
     res.render('prodpost', { title: 'Post',category:category,cart:cart});
 });
 
 router.get('/cartform/:id', async(req, res) => {  
   let product = await Product.findByPk(req.params.id,{include: [{model: Category,as: 'Category',}]})  
   let cart = await Cart.findOne(
-    {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-    {where:{userId:req.user.id,ordered:false}})        
+    {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
+      where:{userId:req.user.id,ordered:false}})        
   res.render('addtocart', { title: 'Add to Cart',product:product,cart:cart});
 });
 
 router.get('/ordersummary', async(req, res) => {    
   let cart = await Cart.findOne(
-    {include: [{model:Delivery,as:'Delivery'},{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-    {where:{userId:req.user.id,ordered:false}})        
-  
+    {include: [{model:Delivery,as:'Delivery'},{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
+      where:{userId:req.user.id,ordered:false}})        
+      
   let deliveries = await Delivery.findAll()      
   res.render('ordersummary', { title: 'Order Summary',cart:cart,deliveries:deliveries});
 });
 
 router.get('/remove/from/cart/:id', async(req, res) => {  
-  let product = await Product.findByPk(req.params.id)  
+  let product = await Product.findByPk(req.params.id)    
   let usercart = await Cart.findOne({where: {userId:req.user.id,ordered:false}})  
   let orderitem = await Order.findOne({where:{productId:req.params.id,cartId:usercart.id,paid:false}})  
   
@@ -95,8 +95,9 @@ router.post('/update/cart/', async function(req, res) {
 router.post('/add/to/cart', async(req, res) => {    
   var product = await Product.findByPk(req.body.productId)
 
-  let existingcart = await Cart.findOne({where: {userId: req.user.id,ordered:false}},{include: [{model: Order,as: 'Order',}]})  
-  
+  let existingcart = await Cart.findOne({include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
+      where:{userId:req.user.id,ordered:false}})        
+    
   if (existingcart){
     let multiple = parseInt(product.price)*parseInt(req.body.quantity)
     var sum= existingcart.total+parseInt(multiple)
@@ -233,12 +234,9 @@ router.post('/mpesa/stk', mpesaauth, async (req,res) => {
         usercart.paymentmethod="Mpesa"
         usercart.ordered=true
         usercart.phoneno=mpesaphone
+                                    
+        let orderupdate= await Order.update({ paid : true },{ where : { cartId : usercart.id,paid:false }});        
 
-        let orders = await Order.findAll({where: {cartId: usercart.id,paid:false}})  
-        for(order in orders){
-          order.paid=true
-          order.save()
-        }
         usercart.save()    
         // update cart end
         
@@ -265,11 +263,8 @@ router.post('/betmac_stk_callback', async (req,res) => {
     usercart.ordered=true
     usercart.phoneno=phone_no
 
-    let orders = await Order.findAll({where: {cartId: usercart.id,paid:false}})  
-    for(order in orders){
-      order.paid=true
-      order.save()
-    }
+    let orderupdate= await Order.update({ paid : true },{ where : { cartId : usercart.id,paid:false }});        
+    
     usercart.save()    
     res.status(200)
   }
