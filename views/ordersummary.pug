@@ -38,5 +38,27 @@ block content
 
                             br
                             input.btn.btn-primary(type='submit',value='Submit')                                                             
-                    hr                    
-                    a.btn.btn-warning(href="/shop/stk") Proceed to mpesa payment
+                    hr              
+                    h4 Payment Methods Available
+                    img(src="/images/mpesa.png" alt="logo" style="border-radius:50%" width="100px")                                  
+                    a.btn.btn-warning#mpesano(href="#mpesamodal") Proceed to mpesa payment
+
+                    div#mpesamodal            
+                        div#btn-close-modal.close-mpesamodal
+                            i.fas.fa-times-circle
+                            p Exit            
+                            img(src="/images/mpesa.png" alt="logo" style="border-radius:50%" width="200px")                            
+                        div.modal-content(style="background:transparent")                    
+                            div.container
+                                if cart                                     
+                                    h6(style="color:red") N/B: This is a showcase site which uses a sandbox mpesa payment. You will be charged ksh 1 for testing which will be refunded at midnight the following day.
+                                    h6.text-center(style="color:white")="Total: ksh "+cart.total+" if in production! "
+                                        i.fas.fa-smile-wink                                                                                                                     
+
+                                    div.wrap                                                                            
+                                        form.flex-form(method="POST",action="/shop/mpesa/stk")                                                                                            
+                                            input(type="number" name="phone" style="flex-basis: 500px;" placeholder="Enter your Safaricom line number for payment")                                                                                            
+                                            input(type="submit" value="Pay")                                                 
+                                else  
+                                    div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
+

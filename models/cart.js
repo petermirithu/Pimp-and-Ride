@@ -2,12 +2,12 @@
 module.exports = (sequelize, DataTypes) => {
   const cart = sequelize.define('cart', {
     userId:DataTypes.INTEGER,
-    receiptno: DataTypes.STRING,
     total: DataTypes.INTEGER,
     ordered: DataTypes.BOOLEAN,
     paymentmethod: DataTypes.STRING,
-    deliveryId: DataTypes.INTEGER
-    
+    deliveryId: DataTypes.INTEGER,
+    MerchantRequestID: DataTypes.STRING,
+    phoneno: DataTypes.STRING,    
   }, {});
   cart.associate = function(models) {
     cart.belongsTo(models.users,{foreignKey: 'userId', as: 'User'}),

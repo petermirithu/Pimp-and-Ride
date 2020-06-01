@@ -44,8 +44,7 @@ router.get('/ordersummary', async(req, res) => {
     {include: [{model:Delivery,as:'Delivery'},{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
     {where:{userId:req.user.id}})        
   
-  let deliveries = await Delivery.findAll()
-
+  let deliveries = await Delivery.findAll()      
   res.render('ordersummary', { title: 'Order Summary',cart:cart,deliveries:deliveries});
 });
 
@@ -184,7 +183,10 @@ function mpesaauth(req,res,next) {
   )
 }
 
-router.get('/stk', mpesaauth, (req,res) => {
+router.post('/mpesa/stk', mpesaauth, async (req,res) => {
+  var hostname = req.headers.host;    
+  let callback = "https://"+hostname+"/shop/betmac_stk_callback"    
+  console.log(callback)  
   let oauth_token = req.access_token  
   let endpoint = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
   let auth = "Bearer " + oauth_token;
@@ -192,6 +194,8 @@ router.get('/stk', mpesaauth, (req,res) => {
   let timestamp = moment().format('YYYYMMDDHHmmss')  
   const password= Buffer.from("174379"+"bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"+timestamp).toString('base64')
 
+  let numberphone=req.body.phone
+  const mpesaphone =numberphone.toString()    
   request(
     {
       url: endpoint,
@@ -205,27 +209,74 @@ router.get('/stk', mpesaauth, (req,res) => {
         "Timestamp": timestamp,
         "TransactionType": "CustomerPayBillOnline",
         "Amount": "1",
-        "PartyA": "254790476167",
+        "PartyA": mpesaphone,
         "PartyB": "174379",
-        "PhoneNumber": "254790476167",
-        "CallBackURL": "https://c93f765b0995.ngrok.io"+"/shop/betmac_stk_callback",
+        "PhoneNumber": mpesaphone,
+        "CallBackURL": callback,
         "AccountReference": "BetmacOrderPayment",
         "TransactionDesc": "Process Activation"
       }
     },
-    function(error,response,body){
-      if(error){
-        console.log(error)
+    async function(error,response,body){
+      if(error){        
+        res.status(400).send(error);                              
+      }            
+      let resultcode = body.ResponseCode
+
+      if(resultcode==0){
+        let merchant_id = body.MerchantRequestID
+        let usercart = await Cart.findOne({where: {userId: req.user.id}})            
+        usercart.MerchantRequestID=merchant_id        
+        
+        usercart.save()   
+
+        //update cart         
+        usercart.paymentmethod="Mpesa"
+        usercart.ordered=true
+        usercart.phoneno=mpesaphone
+
+        let orders = await Order.findAll({where: {cartId: usercart.id}})  
+        for(order in orders){
+          order.paid=true
+          order.save()
+        }
+        usercart.save()    
+        // update cart end
+        
+        req.flash('success','Request accepted for processing. Please check your phone for password prompt.'),
+        res.redirect('/')                                       
       }
-      res.status(200).json(body)
+      else{
+        req.flash('error','There was a problem sending your request. Please contact the Business Owner.'),
+        res.redirect('/')                                       
+      }      
+      // res.status(200).json(body)
     }
   )
 })
 
-router.post('/betmac_stk_callback', (req,res) => {
-  console.log("***********************")
-  console.log(req.body.stkCallback.CallbackMetadata)
-  console.log("***********************")
+router.post('/betmac_stk_callback', async (req,res) => {
+  let resultcode = req.Body.stkCallback.ResultCode
+  if(resultcode==0){
+    // amount=req.body.stkCallback.CallbackMetadata.Item[0].Value
+    let merchant_id=req.Body.stkCallback.MerchantRequestID  
+    let phone_no=req.Body.stkCallback.CallbackMetadata.Item[4].Value
+    let usercart = await Cart.findOne({where: {MerchantRequestID: merchant_id}})    
+    usercart.paymentmethod="Mpesa"
+    usercart.ordered=true
+    usercart.phoneno=phone_no
+
+    let orders = await Order.findAll({where: {cartId: usercart.id}})  
+    for(order in orders){
+      order.paid=true
+      order.save()
+    }
+    usercart.save()    
+    res.status(200)
+  }
+  else{
+    res.status(400).send(error);                              
+  }  
 })
 
 module.exports = router;

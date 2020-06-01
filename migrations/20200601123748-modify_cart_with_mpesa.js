@@ -3,12 +3,11 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {    
     return Promise.all([
-      queryInterface.changeColumn(
+      queryInterface.removeColumn(
         'carts', // table name
-        'deliveryId', // field name
+        'receiptno', // field name
         {
-          type: Sequelize.INTEGER,
-          allowNull: true,
+          type: Sequelize.STRING,          
         },
       ),            
     ]);    
@@ -16,7 +15,7 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
     return Promise.all([
-      queryInterface.changeColumn('carts', 'deliveryId'),
+      queryInterface.removeColumn('carts', 'receiptno'),
     ]);    
   }
 };
