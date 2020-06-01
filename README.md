@@ -69,6 +69,7 @@ To view the site Click [Betmac_LTD.com](https://betmacltd254.herokuapp.com/)
   * Heroku.
   * PassportJS.
   * npm.
+  * Mpesa.
 
  ## Support and contact details
   Incase of a problem, issue or need more clarification, feel free to send an email<br> @ pyra_m.k@yahoo.com<br>
