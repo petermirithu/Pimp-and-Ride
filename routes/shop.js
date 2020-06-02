@@ -22,6 +22,17 @@ const storage = multer.diskStorage({
 
 var upload = multer({storage: storage})
 
+
+router.use( function isAuthenticated(req, res, next) {
+  if (req.user){
+    return next();      
+  }
+  else{
+    req.session.redirectTo = req.originalUrl;         
+    res.redirect('/users/signin');    
+  }
+})
+
 // gets******************************************************************************
 router.get('/form', async(req, res) => {
     let category = await Category.findAll()

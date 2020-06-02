@@ -19,6 +19,16 @@ const storage = multer.diskStorage({
 });
 var upload = multer({storage: storage})
 
+function isAuthenticated(req, res, next) {
+  if (req.user){
+    return next();      
+  }
+  else{
+    req.session.redirectTo = req.originalUrl;         
+    res.redirect('/users/signin');    
+  }
+}
+
 /* GET users . */
 router.get('/signup',async function(req, res) {
   var cart=null
@@ -39,23 +49,23 @@ router.get('/signin', async function(req, res) {
   res.render('signin', { title: 'Sign In',cart:cart });
 });
 
-router.get('/profile',async(req,res) => {
+router.get('/profile',isAuthenticated,async(req,res) => {
   let profile= await Profile.findOne({where: {userId: req.user.id}})
   let cart = await Cart.findOne(
-    {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-    {where:{userId:req.user.id,ordered:false}})        
+    {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],    
+     where:{userId:req.user.id,ordered:false}})        
   res.render('profile',{title:'Profile',profile:profile,cart:cart})
 })
 
-router.get('/update/profile', async function(req, res) {
+router.get('/update/profile',isAuthenticated, async function(req, res) {
   let cart = await Cart.findOne(
-    {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-    {where:{userId:req.user.id,ordered:false}})        
+    {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],    
+     where:{userId:req.user.id,ordered:false}})        
   res.render('updateprofile', { title: 'Update Profile',cart:cart });
 });
 
 // posts
-router.post('/update/profile/pic', upload.single('photo') , async(req, res) => {    
+router.post('/update/profile/pic',isAuthenticated, upload.single('photo') , async(req, res) => {    
   try {
     return Profile
       .update(        
@@ -71,7 +81,7 @@ router.post('/update/profile/pic', upload.single('photo') , async(req, res) => {
   }        
 });
 
-router.post('/profile', async(req, res) => {           
+router.post('/profile',isAuthenticated, async(req, res) => {           
   try {
     return Profile
       .update({ firstname: req.body.fname,lastname: req.body.lname,about: req.body.about},
@@ -120,15 +130,15 @@ router.post('/register',function(req,res){
   }
 });
 
-router.post('/login',function(req,res,next){
+router.post('/login',function(req,res,next){  
   passport.authenticate('local', {
-    successRedirect:'/',
+    successRedirect: req.session.redirectTo || '/',
     failureRedirect:'/users/signin',
     failureFlash:true,
   })(req,res,next);    
 });
 
-router.get('/logout',function(req,res){
+router.get('/logout',isAuthenticated,function(req,res){
   req.logOut();
   req.flash('success', ' Your Logged Out!');
   res.redirect('/')
