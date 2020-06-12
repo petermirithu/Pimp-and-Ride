@@ -17,11 +17,11 @@ html
     block content        
       div#header-wrapper
         div#header.container-fluid
-          div#logo         
+          div#logo                   
             a(href="/")
-              img(src="/images/logo.jpg" alt="logo" style="border-radius:50%" width="100px")
-              span BetMac 
-          
+              img(src="/images/logo.jpg" alt="logo" style="border-radius:50%" width="100px")                                              
+              span Pimp_de_Ride
+
           div#menu
             ul
               li.active
@@ -62,16 +62,31 @@ html
 
         div#banner-wrapper
           div#banner.container
-            div.title
-              h2 Welcome to BetMac LTD
-              span.byline Access customised car parts as well as pimping services just by the click of a button.
-            
-            ul.actions
-              li                                
-                a(href="#products").button
-                  i.fas.fa-cart-arrow-down
-                  
-
+            div.row
+              div.col
+                div.title
+                  h1.ml12 Welcome to Pimp_de_Ride                                    
+                  span.byline Access customised car parts just by the click of a button.
+                ul.actions
+                  li                                
+                    a(href="#products").button
+                      i.fas.fa-cart-arrow-down                             
+              div.col
+                div.title.services                
+                  h2 Services
+                  p.ml14(style="color: #FFE3EA") 
+                    span.text-wrapper
+                      span.letters Pimping a car.
+                      span.line
+                  p.ml14(style="color: #FFE3EA") 
+                    span.text-wrapper
+                      span.letters Car Repair.
+                      span.line                    
+                  p.ml14(style="color: #FFE3EA") 
+                    span.text-wrapper
+                      span.letters System Diagnosing.
+                      span.line                                  
+                            
       div#products          
         h1.text-center Products                                
         div.container
@@ -147,7 +162,58 @@ html
           a(href="https://github.com/petermirithu") Peter Mirithu | Software Developer
 
     script(src="/javascripts/jquery.min.js")        
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js")
     script(src="https://kit.fontawesome.com/8311960bd4.js" crossorigin="anonymous")
     script(src="/javascripts/animatedModal.min.js")
     script(src="/javascripts/scripts.js")
+    script.
+      // Wrap every letter in a span
+      var textWrapper = document.querySelector('.ml14 .letters');
+      textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
+      anime.timeline({loop: true})
+        .add({
+          targets: '.ml14 .line',
+          scaleX: [0,1],
+          opacity: [0.5,1],
+          easing: "easeInOutExpo",
+          duration: 900
+        }).add({
+          targets: '.ml14 .letter',
+          opacity: [0,1],
+          translateX: [40,0],
+          translateZ: 0,
+          scaleX: [0.3, 1],
+          easing: "easeOutExpo",
+          duration: 800,
+          offset: '-=600',
+          delay: (el, i) => 150 + 25 * i
+        }).add({
+          targets: '.ml14',
+          opacity: 0,
+          duration: 1500,
+          easing: "easeOutExpo",
+          delay: 1500
+        }); 
+
+        //- services        
+        var textWrapper = document.querySelector('.ml12');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+        anime.timeline({loop: true})
+          .add({
+            targets: '.ml12 .letter',
+            translateX: [40,0],
+            translateZ: 0,
+            opacity: [0,1],
+            easing: "easeOutExpo",
+            duration: 1200,
+            delay: (el, i) => 500 + 30 * i
+          }).add({
+            targets: '.ml12 .letter',
+            translateX: [0,-30],
+            opacity: [1,0],
+            easing: "easeInExpo",
+            duration: 1100,
+            delay: (el, i) => 100 + 30 * i
+          });
