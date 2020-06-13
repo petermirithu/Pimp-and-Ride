@@ -1,23 +1,29 @@
-html
-    head
-        meta(charset="utf-8")
-        meta(name="viewport" content="width=device-width, initial-scale=1")
-        title=error.status
-        link(rel="shortcut icon" type="image" href="/images/logo.jpg")    
-        link(rel="stylesheet", href="/stylesheets/errostyles.css")        
+//- html
+//-     head
+//-         meta(charset="utf-8")
+//-         meta(name="viewport" content="width=device-width, initial-scale=1")
+//-         title=error.status
+//-         link(rel="shortcut icon" type="image" href="/images/logo.jpg")    
+//-         link(rel="stylesheet", href="/stylesheets/errostyles.css")        
   
-    body
-        div#logo         
-            a(href="/")
-                img(src="/images/logo.jpg" alt="logo" style="border-radius:50%" width="100px")                
-                h2(style="color:black") Pimp_de_Ride
+//-     body
+//-         div#logo         
+//-             a(href="/")
+//-                 img(src="/images/logo.jpg" alt="logo" style="border-radius:50%" width="100px")                
+//-                 h2(style="color:black") Pimp_de_Ride
 
-        h1.text.floating.zoom
-            span=error.status
+//-         h1.text.floating.zoom
+//-             span=error.status
 
-        div.home(style="z-index:99;padding:10px;background:red")                
-            a(href="/" style="color:black") HOME
+//-         div.home(style="z-index:99;padding:10px;background:red")                
+//-             a(href="/" style="color:black") HOME
   
+extends layout
+
+block content
+  h1= message
+  h2= error.status
+  pre #{error.stack}
 
 
 

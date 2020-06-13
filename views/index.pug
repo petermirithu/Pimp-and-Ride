@@ -6,6 +6,8 @@ html
     title= title
     link(rel="shortcut icon" type="image" href="/images/logo.jpg")    
     link(rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css")
+    link(href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet")
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/normalize.min.css')
     link(rel='stylesheet', href='/stylesheets/animate.min.css')
@@ -14,13 +16,74 @@ html
 
 
   body    
-    block content        
-      div#header-wrapper
+    block content       
+      div#headernext.container-fluid(style="background-color:black")
+        div#logo                   
+          a(href="/")            
+            img#logoimage(src="/images/logo.jpg" alt="logo" style="border-radius:50%")                                              
+            span.ml5
+              span.text-wrapper
+                span.line.line1
+                span.letters.letters-left Pimp
+                span.letters.ampersand &amp;
+                span.letters.letters-right Ride
+                span.line.line2                            
+        div#menu
+          ul
+            li.active
+              a(href="/" accesskey="1" title="") Home
+            li
+              a(href="/about") About Us       
+
+            if user
+              if user.admin==true
+                li
+                  a(href="/shop/form" accesskey="2" title="") Post Prod             
+                      
+            li
+              a#cartbadge(href="#cartmodal" accesskey="4" title="")
+                i.fa(style="font-size:24px") &#xf07a;                  
+                if cart               
+                  span#cartCount=cart.Cart.length
+                else  
+                  span#cartCount 0
+
+            if user
+              li
+                a(href="/users/profile" accesskey="5" title="") Profile                  
+              li
+                a(href="/users/logout" accesskey="5" title="") Sign Out  
+            else
+              li
+                a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
+
+        div.smallmenu(onclick="openNav()")
+          i.fas.fa-bars
+
+        a#cartbadge2(href="#cartmodal" accesskey="4" title="")
+          i.fa(style="font-size:40px") &#xf07a;                  
+          if cart               
+            span#cartCount2=cart.Cart.length
+          else  
+            span#cartCount2 0
+        
+
+      div#mySidenav.sidenav
+        a(href="javascript:void(0)" class="closebtn" onclick="closeNav()") &times;
+        a(href="/" accesskey="1" title="") Home
+        a(href="/about") About Us       
+        if user
+          a(href="/users/profile" accesskey="5" title="") Profile   
+          a(href="/users/logout" accesskey="5" title="") Sign Out                 
+        else  
+          a(href="/users/signin" accesskey="5" title="Sign In") Sign In   
+
+      div#header-wrapper                  
         div#header.container-fluid
           div#logo                   
-            a(href="/")
-              img(src="/images/logo.jpg" alt="logo" style="border-radius:50%" width="100px")                                              
-              span Pimp_de_Ride
+            a(href="/")            
+              img#logoimage(src="/images/logo.jpg" alt="logo" style="border-radius:50%")                                              
+              span(style="font-family: 'Kavoon', cursive;font-size: 2.5em;font-weight: 300;") Pimp & Ride                                         
 
           div#menu
             ul
@@ -35,7 +98,7 @@ html
                     a(href="/shop/form" accesskey="2" title="") Post Prod             
                         
               li
-                a#cartbadge(href="#cartmodal" accesskey="4" title="")
+                a#cartbadge3(href="#cartmodal" accesskey="4" title="")
                   i.fa(style="font-size:24px") &#xf07a;                  
                   if cart               
                     span#cartCount=cart.Cart.length
@@ -50,6 +113,16 @@ html
               else
                 li
                   a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
+          div.smallmenu(onclick="openNav()")
+            i.fas.fa-bars
+            
+          a#cartbadge4(href="#cartmodal" accesskey="4" title="")
+            i.fa(style="font-size:40px") &#xf07a;                  
+            if cart               
+              span#cartCount2=cart.Cart.length
+            else  
+              span#cartCount2 0
+
 
         if successes
           div.notification                                                 
@@ -59,13 +132,12 @@ html
           div.notification                                                 
             for error, i in errors
                 div.alert.alert-danger #{ error }
-
         div#banner-wrapper
           div#banner.container
             div.row
               div.col
                 div.title
-                  h1.ml12 Welcome to Pimp_de_Ride                                    
+                  h1.ml12 Welcome to Pimp & Ride                                    
                   span.byline Access customised car parts just by the click of a button.
                 ul.actions
                   li                                
@@ -73,20 +145,15 @@ html
                       i.fas.fa-cart-arrow-down                             
               div.col
                 div.title.services                
-                  h2 Services
-                  p.ml14(style="color: #FFE3EA") 
-                    span.text-wrapper
-                      span.letters Pimping a car.
-                      span.line
-                  p.ml14(style="color: #FFE3EA") 
-                    span.text-wrapper
-                      span.letters Car Repair.
-                      span.line                    
-                  p.ml14(style="color: #FFE3EA") 
-                    span.text-wrapper
-                      span.letters System Diagnosing.
-                      span.line                                  
-                            
+                  h2 Services                                                                 
+                  p(style="color: #FFE3EA") This could be your car after taking part in our services.
+                  div.pic-ctn                                    
+                    img(src="/images/homestuff/bwm.jpeg" alt="" width="200px"  class="pic")                                          
+                    img(src="/images/homestuff/ford.jpeg" alt="" width="200px" class="pic")                     
+                    img(src="/images/homestuff/interior.jpeg" alt="" width="200px" class="pic")                     
+                    img(src="/images/homestuff/mustang.jpeg" alt="" width="200px" class="pic") 
+                    img(src="/images/homestuff/spoiler.jpeg" alt="" width="200px" class="pic")                                             
+
       div#products          
         h1.text-center Products                                
         div.container
@@ -148,7 +215,7 @@ html
               else
                 div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
 
-      div#copyright.container-fluid     
+      div#copyright_home.container-fluid     
         p.icons
           a(href="https://www.instagram.com/?hl=en")
             i.fab.fa-instagram
@@ -163,57 +230,125 @@ html
 
     script(src="/javascripts/jquery.min.js")        
     script(src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js")
+    script(src="https://unpkg.com/aos@2.3.1/dist/aos.js")
     script(src="https://kit.fontawesome.com/8311960bd4.js" crossorigin="anonymous")
     script(src="/javascripts/animatedModal.min.js")
     script(src="/javascripts/scripts.js")
     script.
-      // Wrap every letter in a span
-      var textWrapper = document.querySelector('.ml14 .letters');
+      AOS.init();
+      //- // Wrap every letter in a span
+      //- var textWrapper = document.querySelector('.ml14 .letters');
+      //- textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+      //- anime.timeline({loop: true})
+      //-   .add({
+      //-     targets: '.ml14 .line',
+      //-     scaleX: [0,1],
+      //-     opacity: [0.5,1],
+      //-     easing: "easeInOutExpo",
+      //-     duration: 900
+      //-   }).add({
+      //-     targets: '.ml14 .letter',
+      //-     opacity: [0,1],
+      //-     translateX: [40,0],
+      //-     translateZ: 0,
+      //-     scaleX: [0.3, 1],
+      //-     easing: "easeOutExpo",
+      //-     duration: 800,
+      //-     offset: '-=600',
+      //-     delay: (el, i) => 150 + 25 * i
+      //-   }).add({
+      //-     targets: '.ml14',
+      //-     opacity: 0,
+      //-     duration: 1500,
+      //-     easing: "easeOutExpo",
+      //-     delay: 1500
+      //-   }); 
+
+      //- services        
+      var textWrapper = document.querySelector('.ml12');
       textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
       anime.timeline({loop: true})
         .add({
-          targets: '.ml14 .line',
-          scaleX: [0,1],
-          opacity: [0.5,1],
-          easing: "easeInOutExpo",
-          duration: 900
-        }).add({
-          targets: '.ml14 .letter',
-          opacity: [0,1],
+          targets: '.ml12 .letter',
           translateX: [40,0],
           translateZ: 0,
-          scaleX: [0.3, 1],
+          opacity: [0,1],
           easing: "easeOutExpo",
-          duration: 800,
-          offset: '-=600',
-          delay: (el, i) => 150 + 25 * i
+          duration: 1200,
+          delay: (el, i) => 500 + 30 * i
         }).add({
-          targets: '.ml14',
-          opacity: 0,
-          duration: 1500,
+          targets: '.ml12 .letter',
+          translateX: [0,-30],
+          opacity: [1,0],
+          easing: "easeInExpo",
+          duration: 1100,
+          delay: (el, i) => 100 + 30 * i
+        });
+
+      //- logo stuff
+      anime.timeline({loop: true})
+        .add({
+          targets: '.ml5 .line',
+          opacity: [0.5,1],
+          scaleX: [0, 1],
+          easing: "easeInOutExpo",
+          duration: 700
+        }).add({
+          targets: '.ml5 .line',
+          duration: 600,
           easing: "easeOutExpo",
-          delay: 1500
-        }); 
+          translateY: (el, i) => (-0.625 + 0.625*2*i) + "em"
+        }).add({
+          targets: '.ml5 .ampersand',
+          opacity: [0,1],
+          scaleY: [0.5, 1],
+          easing: "easeOutExpo",
+          duration: 600,
+          offset: '-=600'
+        }).add({
+          targets: '.ml5 .letters-left',
+          opacity: [0,1],
+          translateX: ["0.5em", 0],
+          easing: "easeOutExpo",
+          duration: 600,
+          offset: '-=300'
+        }).add({
+          targets: '.ml5 .letters-right',
+          opacity: [0,1],
+          translateX: ["-0.5em", 0],
+          easing: "easeOutExpo",
+          duration: 600,
+          offset: '-=600'
+        }).add({
+          targets: '.ml5',
+          opacity: 0,
+          duration: 1000,
+          easing: "easeOutExpo",
+          delay: 1000
+        });
 
-        //- services        
-        var textWrapper = document.querySelector('.ml12');
-        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+        //- navbar 
+        window.onscroll = function() {scrollFunction()};
+        function scrollFunction() {
+          if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
+            document.getElementById("header").style.display = "none";                      
+            document.getElementById("headernext").style.display = "block";             
 
-        anime.timeline({loop: true})
-          .add({
-            targets: '.ml12 .letter',
-            translateX: [40,0],
-            translateZ: 0,
-            opacity: [0,1],
-            easing: "easeOutExpo",
-            duration: 1200,
-            delay: (el, i) => 500 + 30 * i
-          }).add({
-            targets: '.ml12 .letter',
-            translateX: [0,-30],
-            opacity: [1,0],
-            easing: "easeInExpo",
-            duration: 1100,
-            delay: (el, i) => 100 + 30 * i
-          });
+          } else {
+            document.getElementById("header").style.display = "block";                         
+            document.getElementById("headernext").style.display = "none";             
+          }
+        }
+
+        function openNav() {
+          document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+          document.getElementById("mySidenav").style.width = "0";
+        }
+
+ 
+  

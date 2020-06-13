@@ -6,51 +6,127 @@ html
     title= title
     block links
       link(rel="shortcut icon" type="image" href="/images/logo.jpg")    
+      link(href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet")
       link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")        
       link(rel='stylesheet', href='/stylesheets/animate.min.css')
       link(rel='stylesheet', href='/stylesheets/normalize.min.css')
       link(rel='stylesheet', href='/stylesheets/style.css')
 
   body
-    div#header-wrapper
-        div#header.container-fluid
-          div#logo         
-            a(href="/")
-              img(src="/images/logo.jpg" alt="logo" style="border-radius:50%" width="100px")
-              span Pimp_de_Ride
-          
-          div#menu
-            ul
-              li.active
-                a(href="/" accesskey="1" title="") Home
-              li
-                a(href="/about" accesskey="2" title="") About Us              
-              
-              li
-                a#cartbadge(href="#cartmodal" accesskey="4" title="")
-                  i.fa(style="font-size:24px") &#xf07a;   
-                  if cart               
-                    span#cartCount=cart.Cart.length
-                  else  
-                    span#cartCount 0
+    div#headernext.container-fluid(style="background-color:black")
+      div#logo                   
+        a(href="/")            
+          img#logoimage(src="/images/logo.jpg" alt="logo" style="border-radius:50%")                                              
+          span.ml5
+            span.text-wrapper
+              span.line.line1
+              span.letters.letters-left Pimp
+              span.letters.ampersand &amp;
+              span.letters.letters-right Ride
+              span.line.line2                            
+      div#menu
+        ul
+          li.active
+            a(href="/" accesskey="1" title="") Home
+          li
+            a(href="/about") About Us       
 
-              if user
+          if user
+            if user.admin==true
+              li
+                a(href="/shop/form" accesskey="2" title="") Post Prod             
+                    
+          li
+            a#cartbadge(href="#cartmodal" accesskey="4" title="")
+              i.fa(style="font-size:24px") &#xf07a;                  
+              if cart               
+                span#cartCount=cart.Cart.length
+              else  
+                span#cartCount 0
+
+          if user
+            li
+              a(href="/users/profile" accesskey="5" title="") Profile                  
+            li
+              a(href="/users/logout" accesskey="5" title="") Sign Out  
+          else
+            li
+              a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
+
+      div.smallmenu(onclick="openNav()")
+        i.fas.fa-bars
+
+      a#cartbadge2(href="#cartmodal" accesskey="4" title="")
+        i.fa(style="font-size:40px") &#xf07a;                  
+        if cart               
+          span#cartCount2=cart.Cart.length
+        else  
+          span#cartCount2 0
+                  
+    div#mySidenav.sidenav
+      a(href="javascript:void(0)" class="closebtn" onclick="closeNav()") &times;
+      a(href="/" accesskey="1" title="") Home
+      a(href="/about") About Us       
+      if user
+        a(href="/users/profile" accesskey="5" title="") Profile   
+        a(href="/users/logout" accesskey="5" title="") Sign Out                 
+      else  
+        a(href="/users/signin" accesskey="5" title="Sign In") Sign In   
+
+    div#header-wrapper                  
+      div#header.container-fluid
+        div#logo                   
+          a(href="/")            
+            img#logoimage(src="/images/logo.jpg" alt="logo" style="border-radius:50%")                                              
+            span(style="font-family: 'Kavoon', cursive;font-size: 2.5em;font-weight: 300;") Pimp & Ride                                         
+
+        div#menu
+          ul
+            li.active
+              a(href="/" accesskey="1" title="") Home
+            li
+              a(href="/about") About Us       
+
+            if user
+              if user.admin==true
                 li
-                  a(href="/users/profile" accesskey="5" title="") Profile                  
-                li
-                  a(href="/users/logout" accesskey="5" title="") Sign Out  
-              else
-                li
-                  a(href="/users/signin" accesskey="5" title="Sign In") Sign In                              
-              
-    div.notification                                                 
-      if successes
-          for success in successes
-              div.alert.alert-success #{ success }
-      if errors
-          for error, i in errors
-              div.alert.alert-danger #{ error }
-    
+                  a(href="/shop/form" accesskey="2" title="") Post Prod             
+                      
+            li
+              a#cartbadge3(href="#cartmodal" accesskey="4" title="")
+                i.fa(style="font-size:24px") &#xf07a;                  
+                if cart               
+                  span#cartCount=cart.Cart.length
+                else  
+                  span#cartCount 0
+
+            if user
+              li
+                a(href="/users/profile" accesskey="5" title="") Profile                  
+              li
+                a(href="/users/logout" accesskey="5" title="") Sign Out  
+            else
+              li
+                a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
+        div.smallmenu(onclick="openNav()")
+          i.fas.fa-bars
+          
+        a#cartbadge4(href="#cartmodal" accesskey="4" title="")
+          i.fa(style="font-size:40px") &#xf07a;                  
+          if cart               
+            span#cartCount2=cart.Cart.length
+          else  
+            span#cartCount2 0
+            
+    if successes
+      div.notification                                                 
+        for success in successes
+            div.alert.alert-success #{ success }
+    if errors
+      div.notification                                                 
+        for error, i in errors
+            div.alert.alert-danger #{ error }              
+  
     block content
 
     div#cartmodal            
@@ -94,7 +170,73 @@ html
           a(href="https://github.com/petermirithu") Peter Mirithu | Software Developer
 
   
-  script(src="/javascripts/jquery.min.js")        
+  script(src="/javascripts/jquery.min.js")       
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js")  
   script(src="https://kit.fontawesome.com/8311960bd4.js" crossorigin="anonymous")
   script(src="/javascripts/animatedModal.min.js")
   script(src="/javascripts/scripts.js")
+  script.
+
+      //- logo stuff
+      anime.timeline({loop: true})
+        .add({
+          targets: '.ml5 .line',
+          opacity: [0.5,1],
+          scaleX: [0, 1],
+          easing: "easeInOutExpo",
+          duration: 700
+        }).add({
+          targets: '.ml5 .line',
+          duration: 600,
+          easing: "easeOutExpo",
+          translateY: (el, i) => (-0.625 + 0.625*2*i) + "em"
+        }).add({
+          targets: '.ml5 .ampersand',
+          opacity: [0,1],
+          scaleY: [0.5, 1],
+          easing: "easeOutExpo",
+          duration: 600,
+          offset: '-=600'
+        }).add({
+          targets: '.ml5 .letters-left',
+          opacity: [0,1],
+          translateX: ["0.5em", 0],
+          easing: "easeOutExpo",
+          duration: 600,
+          offset: '-=300'
+        }).add({
+          targets: '.ml5 .letters-right',
+          opacity: [0,1],
+          translateX: ["-0.5em", 0],
+          easing: "easeOutExpo",
+          duration: 600,
+          offset: '-=600'
+        }).add({
+          targets: '.ml5',
+          opacity: 0,
+          duration: 1000,
+          easing: "easeOutExpo",
+          delay: 1000
+        });
+
+        //- navbar 
+                //- navbar 
+        window.onscroll = function() {scrollFunction()};
+        function scrollFunction() {
+          if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
+            document.getElementById("header").style.display = "none";                      
+            document.getElementById("headernext").style.display = "block";             
+
+          } else {
+            document.getElementById("header").style.display = "block";                         
+            document.getElementById("headernext").style.display = "none";             
+          }
+        }
+
+        function openNav() {
+          document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+          document.getElementById("mySidenav").style.width = "0";
+        }
