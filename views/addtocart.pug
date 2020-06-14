@@ -4,7 +4,7 @@ block append links
 
 block content
     div.container        
-        h1.text-center Add to Cart        
+        h1.text-center Update Cart        
         div.wrapper
             div.product-img
                 img(src='/uploads/products/'+product.image  width="90%")
@@ -22,9 +22,9 @@ block content
                     h2="Category: "+product.Category.name
                     h2="Price: ksh "+product.price
 
-                    form.form-inline(method='POST' action='/shop/add/to/cart')
+                    form.form-inline(method='POST' action='/shop/update/item/cart/')
                         #form-group                            
-                            input.form-control(name='quantity',type='number' placeholder="Enter Quantity" required)                                
+                            input.form-control(name='quantity',type='number' placeholder="Enter Quantity" value=item.quantity required)                                
                             input(name='productId',type='number' style="visibility:hidden" value=product.id required)            
                         br
                         input.btn.btn-primary(type='submit',value='Submit')

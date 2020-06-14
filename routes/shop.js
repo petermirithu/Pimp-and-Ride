@@ -47,8 +47,9 @@ router.get('/cartform/:id', async(req, res) => {
   let product = await Product.findByPk(req.params.id,{include: [{model: Category,as: 'Category',}]})  
   let cart = await Cart.findOne(
     {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
-      where:{userId:req.user.id,ordered:false}})        
-  res.render('addtocart', { title: 'Add to Cart',product:product,cart:cart});
+      where:{userId:req.user.id,ordered:false}})    
+  let item = await Order.findOne({where:{cartId:cart.id,productId:product.id,paid:false}})        
+  res.render('addtocart', { title: 'Update Cart',product:product,cart:cart,item:item});
 });
 
 router.get('/ordersummary', async(req, res) => {    
@@ -84,12 +85,53 @@ router.get('/remove/delivery/:id', async(req, res) => {
   usercart.total=deducted
   usercart.deliveryId=null
   usercart.save()
-  req.flash('success','Succesfuly removed that delivery place from your order')
+  req.flash('success','Succesfully removed that delivery place from your order')
   res.redirect('/shop/ordersummary')                                          
 });
 
 
 // posts******************************************************************************
+router.post('/update/item/cart/', async function(req, res) {
+  var product = await Product.findByPk(req.body.productId)
+  let usercart = await Cart.findOne({where: {userId: req.user.id,ordered:false}})  
+  let orderitem = await Order.findOne({where: {cartId: usercart.id,productId:product.id,paid:false}})  
+  
+  if(parseInt(req.body.quantity)<1){
+    req.flash('error','You chose a negative quantity or 0 quantity!')
+    res.redirect('/shop/ordersummary')  
+  }
+  else if(parseInt(orderitem.quantity)===parseInt(req.body.quantity)){
+    req.flash('success','Quantity of item never changed')
+    res.redirect('/shop/ordersummary')  
+  }
+  else if(parseInt(orderitem.quantity)>parseInt(req.body.quantity)){
+    let minused= parseInt(orderitem.quantity)-parseInt(req.body.quantity)
+    let todeducted=parseInt(product.price)*parseInt(minused)
+    let reminder = parseInt(usercart.total)-todeducted
+    
+    usercart.total=reminder
+    usercart.save()    
+
+    orderitem.quantity=parseInt(req.body.quantity)
+    orderitem.save()  
+    req.flash('success','Succesfully Updated that item')
+    res.redirect('/shop/ordersummary')                                          
+  }
+  else{
+    let added_x= parseInt(req.body.quantity)-parseInt(orderitem.quantity)
+    let toadded=parseInt(product.price)*parseInt(added_x)
+    let sumed = parseInt(usercart.total)+toadded
+    
+    usercart.total=sumed
+    usercart.save()    
+
+    orderitem.quantity=parseInt(req.body.quantity)
+    orderitem.save()  
+    req.flash('success','Succesfully Updated that item')
+    res.redirect('/shop/ordersummary')      
+  }
+});
+
 router.post('/update/cart/', async function(req, res) {
   let place = await Delivery.findByPk(req.body.deliveryId)    
   let usercart = await Cart.findOne({where: {userId: req.user.id,ordered:false}})  
@@ -104,35 +146,45 @@ router.post('/update/cart/', async function(req, res) {
   res.redirect('/shop/ordersummary')                                          
 });
 
-router.post('/add/to/cart', async(req, res) => {    
-  var product = await Product.findByPk(req.body.productId)
+router.get('/add/to/cart/:id', async(req, res) => {    
+  var product = await Product.findByPk(req.params.id)
 
   let existingcart = await Cart.findOne({include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
       where:{userId:req.user.id,ordered:false}})        
     
   if (existingcart){
-    let multiple = parseInt(product.price)*parseInt(req.body.quantity)
+    let multiple = parseInt(product.price)*parseInt(1)
     var sum= existingcart.total+parseInt(multiple)
     existingcart.total=sum
     existingcart.save()
 
-    let neworder = await Order.build({productId:req.body.productId,cartId:existingcart.id,quantity:req.body.quantity})
-    neworder.save()
-    req.flash('success','Successfully added to cart'),
-    res.redirect('/')                                      
+    let orderitem_x = await Order.findOne({where: {cartId: existingcart.id,productId:product.id,paid:false}})  
+    if(orderitem_x){
+      let newqt_x=parseInt(orderitem_x.quantity)+1
+      orderitem_x.quantity=newqt_x
+      orderitem_x.save()
+      req.flash('success','Successfully updated item quantity and cart'),
+      res.redirect('/')                                      
+    }
+    else{
+      let neworder = await Order.build({productId:product.id,cartId:existingcart.id,quantity:1})
+      neworder.save()
+      req.flash('success','Successfully added to cart'),
+      res.redirect('/')                                      
+    }
   }
   else{
     let newcart = await Cart.create({userId:req.user.id})
 
     let prevcart = await Cart.findOne({where: {userId:req.user.id,ordered:false}})
         
-    let multiple = parseInt(product.price)*parseInt(req.body.quantity)
+    let multiple = parseInt(product.price)*parseInt(1)
 
     var sum=prevcart.total+parseInt(multiple)
     prevcart.total=sum
     prevcart.save()
 
-    let neworder = await Order.build({productId:req.body.productId,cartId:prevcart.id,quantity:req.body.quantity})
+    let neworder = await Order.build({productId:product.id,cartId:prevcart.id,quantity:1})
     neworder.save()
 
     req.flash('success','Successfully added to cart'),

@@ -4,8 +4,8 @@ block content
         h1.text-center Order Summary
         h6.text-center="Total to be paid: ksh "+cart.total
         div.container
-            div.row
-                div.col-md-8
+            div.wrap
+                div.column(style="width:600px")            
                     if cart            
                         div.wrap
                             for item in cart.Cart                             
@@ -15,13 +15,17 @@ block content
                                     div.card-body                                                      
                                         img(src="/uploads/products/"+item.Product.image width="70px")
                                         p="Price: @ ksh "+item.Product.price                        
-                                        p="Quantity: "+item.quantity                        
-                                        a(href="/shop/remove/from/cart/"+item.Product.id)
+                                        p="Quantity: "+item.quantity                                                           
+                                        a(href="/shop/cartform/"+item.Product.id ,style="color: #61BAAD")
+                                            i.fas.fa-edit Edit
+                                        span=" "    
+                                        a(href="/shop/remove/from/cart/"+item.Product.id, style="color: #B9134F")
                                             i.fas.fa-times-circle Remove
                     else
                         div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                                         
                             
-                div.col-md-4
+                div.column(style="width:400px")    
+                    hr        
                     if cart.Delivery
                         h4 Delivery
                         p="Place: "+cart.Delivery.name
@@ -41,24 +45,26 @@ block content
                     hr              
                     h4 Payment Methods Available
                     img(src="/images/mpesa.png" alt="logo" style="border-radius:50%" width="100px")                                  
-                    a.btn.btn-warning#mpesano(href="#mpesamodal") Proceed to mpesa payment
-
-                    div#mpesamodal            
-                        div#btn-close-modal.close-mpesamodal
-                            i.fas.fa-times-circle
-                            p Exit            
-                            img(src="/images/mpesa.png" alt="logo" style="border-radius:50%" width="200px")                            
-                        div.modal-content(style="background:transparent")                    
-                            div.container
+                    a.btn.btn-warning(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id03').style.display='block'" title="Mpesa Payment") Proceed to mpesa payment
+                    
+                    div#id03.paymentmodal  
+                        form.modal-content.animate(method="POST" action='/shop/mpesa/stk')
+                            div.imgcontainer            
+                                h2.text-center Payment                        
+                                img(src="/images/mpesa.png" alt="logo" style="border-radius:50%" width="200px")                            
+                                p(style="color:black")="Total: ksh "+cart.total                                                                                                                              
+                            div.container                                            
                                 if cart                                     
-                                    h6(style="color:red") N/B: This is a showcase site which uses a sandbox mpesa payment. You will be charged ksh 1 for testing which will be refunded at midnight the following day.
-                                    h6.text-center(style="color:white")="Total: ksh "+cart.total+" if in production! "
-                                        i.fas.fa-smile-wink                                                                                                                     
-
-                                    div.wrap                                                                            
-                                        form.flex-form(method="POST",action="/shop/mpesa/stk")                                                                                            
-                                            input(type="number" name="phone" style="flex-basis: 500px;" placeholder="Enter your Safaricom line number for payment")                                                                                            
-                                            input(type="submit" value="Pay")                                                 
+                                    p(style="color:red") N/B: This is a showcase site which uses a sandbox mpesa payment. You will be charged ksh 1 for testing which will be refunded at midnight the following day.
+                                    label(for="phone") 
+                                        b Phone Number
+                                    input.form-control(type="number" name="phone" placeholder="Enter your Safaricom line number for payment" required)                                                                                            
+                                                                                                                                                                                         
                                 else  
-                                    div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
+                                    div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                                                             
+                                button(type="submit") Pay            
+
+                            div.container(style="background-color:#f1f1f1")
+                                button(type="button" onclick="document.getElementById('id03').style.display='none'").cancelbtn Cancel                                                           
+
 
