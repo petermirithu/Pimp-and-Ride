@@ -1,43 +1,83 @@
 extends layout
+block append links    
+    link(rel='stylesheet', href='/stylesheets/about.css')
 
 block content    
     h1.text-center About Us            
-    p.aboutbyline.text-center Pimp your ride
-    div.container                                   
+    p.aboutbyline.text-center Pimp your ride    
+    div.aboutus 
+        p Pimp & Ride is the name of the company. We are focused on pimping all sorts of vehicles ranging from small saloon cars all the way to long distane trucks.                            
+        p We offer pimping servcies right by the press of button where we come to where you are. We have well trained and educated engineers and creative personel who are responsible for the hands on job.
+        p We sell customised car parts too.        
+
+    h1.text-center Our Team         
+    div.container-fluid
         div.row
-            div.col
-                div.box
-                    img(src="/images/logo.jpg" width="200px")
-            div.col
-                div.box
-                    p Pimp & Ride is the name of the company. We are focused on pimping all sorts of vehicles ranging from small saloon cars all the way to long distane trucks.                    
-            div.col
-                div.box
-                    p We offer pimping servcies right by the press of button where we come to where you are. We have well trained and educated engineers and creative personel who are responsible for the hands on job.
-                    p We sell customised car parts too.        
-        div.row
-            h4 You can find us via:
-            ul
-                li
-                    a(href="https://www.instagram.com/?hl=en")
-                        i.fab.fa-instagram 
-                        span=" "
-                        span Instagram              
-                li
-                    a(href="https://twitter.com/login?lang=en")
-                        i.fab.fa-twitter
-                        span=" "
-                        span Twitter
-                li
-                    a(href="https://www.facebook.com/")
-                        i.fab.fa-facebook
-                        span=" "
-                        span Facebook
-                li
-                    a(href="mailto: peter_mirithu@yahoo.com")
-                        i.far.fa-envelope
-                        span=" "
-                        span Email
+            div.column
+                div.card
+                    img(src="/images/team/man1.png" alt="pyra" style="width:80%")
+                    div.container
+                        h2 Pyra
+                        p.title CEO & Software Developer
+                        p I am a professional Software Developer and best Code Debugger you would ever find.
+                        p pyra_m.k@yahoo.com
+                        p
+                            button.button Contact    
+
+            div.column
+                div.card
+                    img(src="/images/team/woman.png" alt="Cathie" style="width:80%")
+                    div.container
+                        h2 Cathie
+                        p.title Manager & Front-end Developer
+                        p I am a Front-end Developer and good at UI and UX Designing.
+                        p cathie@gmail.com
+                        p
+                            button.button Contact
+
+            div.column
+                div.card
+                    img(src="/images/team/man2.png" alt="Kevo" style="width:80%")
+                    div.container
+                        h2 Kevo
+                        p.title Project Manager & Back-end Developer
+                        p I am Back-end Developer and good at RESTful api application and Database management.
+                        p Kevo@outlook.com
+                        p
+                            button.button Contact
+                                    
+                        
+        //-     div.col
+        //-         div.box
+        //-             p Pimp & Ride is the name of the company. We are focused on pimping all sorts of vehicles ranging from small saloon cars all the way to long distane trucks.                    
+        //-     div.col
+        //-         div.box
+        //-             p We offer pimping servcies right by the press of button where we come to where you are. We have well trained and educated engineers and creative personel who are responsible for the hands on job.
+        //-             p We sell customised car parts too.        
+        //- div.row
+        //-     h4 You can find us via:
+        //-     ul
+        //-         li
+        //-             a(href="https://www.instagram.com/?hl=en")
+        //-                 i.fab.fa-instagram 
+        //-                 span=" "
+        //-                 span Instagram              
+        //-         li
+        //-             a(href="https://twitter.com/login?lang=en")
+        //-                 i.fab.fa-twitter
+        //-                 span=" "
+        //-                 span Twitter
+        //-         li
+        //-             a(href="https://www.facebook.com/")
+        //-                 i.fab.fa-facebook
+        //-                 span=" "
+        //-                 span Facebook
+        //-         li
+        //-             a(href="mailto: peter_mirithu@yahoo.com")
+        //-                 i.far.fa-envelope
+        //-                 span=" "
+        //-                 span Email
                 
         
         
+
