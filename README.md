@@ -1,10 +1,10 @@
-# [Betmac_LTD](https://betmacltd254.herokuapp.com/)
+# [Pimp & Ride ](https://pimpandride.herokuapp.com/)
 
 This project was generated with [NodeJS](https://nodejs.org/en/) version 12.17.0 <br>
 
-![picture](public/images/betmac.png)
+![picture](public/images/pimp&ride.png)
 
-To view the site Click [Betmac_LTD.com](https://betmacltd254.herokuapp.com/)
+To view the site Click [Pimp & Ride.com](https://pimpandride.herokuapp.com/)
 
 ## Author: 
   * [Peter Mirithu](https://github.com/petermirithu/Bemac_LTD)
