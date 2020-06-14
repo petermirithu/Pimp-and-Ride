@@ -45,14 +45,18 @@ html
               else  
                 span#cartCount 0
 
-          if user
-            li
-              a(href="/users/profile" accesskey="5" title="") Profile                  
-            li
-              a(href="/users/logout" accesskey="5" title="") Sign Out  
+          if user                
+            li.dropdown
+              div.dropbtn Account 
+                i.fa.fa-caret-down                
+              div.dropdown-content
+                a(href="/users/profile" accesskey="5" title="") Profile                  
+                a(href="/users/logout" accesskey="5" title="") Sign Out  
           else
             li
               a(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
+          li    
+            a(href="")
 
       div.smallmenu(onclick="openNav()")
         i.fas.fa-bars
@@ -103,14 +107,19 @@ html
                 else  
                   span#cartCount 0
 
-            if user
-              li
-                a(href="/users/profile" accesskey="5" title="") Profile                  
-              li
-                a(href="/users/logout" accesskey="5" title="") Sign Out  
+            if user                
+              li.dropdown
+                div.dropbtn Account 
+                  i.fa.fa-caret-down                
+                div.dropdown-content
+                  a(href="/users/profile" accesskey="5" title="") Profile                  
+                  a(href="/users/logout" accesskey="5" title="") Sign Out  
             else
               li
                 a(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
+            li    
+              a(href="")
+              
         div.smallmenu(onclick="openNav()")
           i.fas.fa-bars
           

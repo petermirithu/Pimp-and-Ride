@@ -49,14 +49,18 @@ html
                 else  
                   span#cartCount 0
 
-            if user
-              li
-                a(href="/users/profile" accesskey="5" title="") Profile                  
-              li
-                a(href="/users/logout" accesskey="5" title="") Sign Out  
+            if user                
+              li.dropdown
+                div.dropbtn Account 
+                  i.fa.fa-caret-down                
+                div.dropdown-content
+                  a(href="/users/profile" accesskey="5" title="") Profile                  
+                  a(href="/users/logout" accesskey="5" title="") Sign Out  
             else
               li
                 a(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
+            li    
+              a(href="")
 
         div.smallmenu(onclick="openNav()")
           i.fas.fa-bars
@@ -109,14 +113,19 @@ html
                   else  
                     span#cartCount 0
 
-              if user
-                li
-                  a(href="/users/profile" accesskey="5" title="") Profile                  
-                li
-                  a(href="/users/logout" accesskey="5" title="") Sign Out  
+              if user                
+                li.dropdown
+                  div.dropbtn Account 
+                    i.fa.fa-caret-down                
+                  div.dropdown-content
+                    a(href="/users/profile" accesskey="5" title="") Profile                  
+                    a(href="/users/logout" accesskey="5" title="") Sign Out  
               else
                 li
                   a(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
+              li    
+                a(href="")
+                              
 
           div.smallmenu(onclick="openNav()")
             i.fas.fa-bars
@@ -185,10 +194,10 @@ html
               a(href="#") Tyres
               a(href="#") Interior Design                        
               h5(style="color: #f3cc2f") Services
-              a(href="#") Car pimping
-              a(href="#") Car Tuning
-              a(href="#") Full System Diagnosis
-              a(href="#") Free Oil Replacement
+              a(href="/services") Car pimping
+              a(href="/services") Car Tuning
+              a(href="/services") Full System Diagnosis
+              a(href="/services") Free Oil Replacement
 
 
           div.row(style="margin-left:40px")
@@ -213,7 +222,7 @@ html
                           div.h-bg
                             div.h-bg-inner                  
 
-                          a.cart(href="/shop/cartform/"+prod.id)
+                          a.cart(href="/shop/add/to/cart/"+prod.id)
                             span.price="KSH "+prod.price
                               span=" "
                               i.fas.fa-cart-plus
