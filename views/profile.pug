@@ -5,9 +5,9 @@ block content
     div.profile
         h1.text-center=user.username+"'s profile"      
 
-    div.container    
-        div.row
-            div.col                
+    div.container-fluid    
+        div.wrap
+            div.column(style="width:600px")            
                 div.profilecard
                     h6.card-header="Username: "+user.username
                     div.card-body
@@ -23,8 +23,7 @@ block content
                             br
                             input.btn.btn-danger(type='submit',value='Change')                                                           
                         
-
-            div.col 
+            div.column(style="width:600px")
                 div.moreofu
                     if profile
                         h5="Full Name: "+profile.firstname+" "+profile.lastname           
@@ -37,7 +36,30 @@ block content
                         a(href="/update/profile") Add About
 
                     hr
-                    a.btncool(href="/users/update/profile") Update Profile                
-                    
-                
+                    a.btncool(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id02').style.display='block'" title="Update profile") Update profile                    
+
+        div#id02.updateprofilemodal  
+            form.modal-content.animate(method="POST" action='/users/profile')
+                div.imgcontainer            
+                    if profile.profile_pic
+                        img.avatar(src='/uploads/profile/'+profile.profile_pic width="80px" style="border-radius:50%" alt="profile")                                       
+                    else
+                        img.avatar(src='https://cdn.nohat.cc/thumb/f/720/comvecteezy377227.jpg' width="80px" style="border-radius:50%" alt="porfile")                                                               
+                    h1.text-center Update Profile                        
+                div.container            
+                    label(for="fname") 
+                        b First Name
+                    input(type="text" placeholder="Enter First name" name="fname" value=profile.firstname)
+
+                    label(for="lname")
+                        b Last Name
+                    input(type="text" placeholder="Enter Last name" name="lname" value=profile.lastname)
+
+                    label(for="about")
+                        b About You
+                    input(name="about" type="text" value=profile.about)                 
+
+                    button(type="submit") Update Profile            
+                div.container(style="background-color:#f1f1f1")
+                    button(type="button" onclick="document.getElementById('id02').style.display='none'").cancelbtn Cancel                                                           
 
