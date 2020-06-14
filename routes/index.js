@@ -14,7 +14,7 @@ router.get('/', async(req, res) => {
       {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
       where:{userId:req.user.id,ordered:false}})        
   }
-  res.render('index', { title: 'Pimp_de_Ride',products:products,cart:cart});
+  res.render('index', { title: 'Pimp & Ride',products:products,cart:cart});
 });
 
 router.get('/about', async(req, res) => {
@@ -25,6 +25,16 @@ router.get('/about', async(req, res) => {
       where:{userId:req.user.id,ordered:false}})        
   }
   res.render('about', { title: 'About',cart:cart});
+});
+
+router.get('/services', async(req, res) => {
+  var cart=null
+  if (req.user){
+    cart = await Cart.findOne(
+      {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
+      where:{userId:req.user.id,ordered:false}})        
+  }
+  res.render('services', { title: 'Services',cart:cart});
 });
 
 module.exports = router;
