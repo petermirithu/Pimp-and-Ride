@@ -12,7 +12,7 @@ html
     link(rel='stylesheet', href='/stylesheets/normalize.min.css')
     link(rel='stylesheet', href='/stylesheets/animate.min.css')
     link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')    
 
 
   body    
@@ -34,11 +34,12 @@ html
               a(href="/" accesskey="1" title="") Home
             li
               a(href="/about") About Us       
-
+            li
+                a(href="/services") Services 
             if user
               if user.admin==true
                 li
-                  a(href="/shop/form" accesskey="2" title="") Post Prod             
+                  a(href="/shop/form" accesskey="2" title="") Post             
                       
             li
               a#cartbadge(href="#cartmodal" accesskey="4" title="")
@@ -55,7 +56,7 @@ html
                 a(href="/users/logout" accesskey="5" title="") Sign Out  
             else
               li
-                a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
+                a(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
 
         div.smallmenu(onclick="openNav()")
           i.fas.fa-bars
@@ -72,11 +73,12 @@ html
         a(href="javascript:void(0)" class="closebtn" onclick="closeNav()") &times;
         a(href="/" accesskey="1" title="") Home
         a(href="/about") About Us       
+        a(href="/services") Services    
         if user
           a(href="/users/profile" accesskey="5" title="") Profile   
           a(href="/users/logout" accesskey="5" title="") Sign Out                 
         else  
-          a(href="/users/signin" accesskey="5" title="Sign In") Sign In   
+          a(accesskey="5" style="cursor:pointer;color:#FFE3EA;" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
 
       div#header-wrapper                  
         div#header.container-fluid
@@ -91,11 +93,13 @@ html
                 a(href="/" accesskey="1" title="") Home
               li
                 a(href="/about") About Us       
+              li
+                a(href="/services") Services       
 
               if user
                 if user.admin==true
                   li
-                    a(href="/shop/form" accesskey="2" title="") Post Prod             
+                    a(href="/shop/form" accesskey="2" title="") Post             
                         
               li
                 a#cartbadge3(href="#cartmodal" accesskey="4" title="")
@@ -112,7 +116,8 @@ html
                   a(href="/users/logout" accesskey="5" title="") Sign Out  
               else
                 li
-                  a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
+                  a(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
+
           div.smallmenu(onclick="openNav()")
             i.fas.fa-bars
             
@@ -155,9 +160,39 @@ html
                     img(src="/images/homestuff/spoiler.jpeg" alt="" width="200px" class="pic")                                             
 
       div#products          
-        h1.text-center Products                                
-        div.container
-          div.row
+        h1.text-center Products                           
+        div.container-fluid
+          div#mySidebar.sidebar          
+            div.barmenu
+              div Menu
+                span(onclick="openBar()" style="cursor:pointer") 
+                  i.fas.fa-angle-double-right   
+                span                                              
+                  i.fab.fa-instagram(style="padding:10px")
+                  i.fab.fa-twitter(style="padding:10px")
+                  i.fab.fa-facebook(style="padding:10px")
+                  i.far.fa-envelope(style="padding:10px")   
+                  //- form.form-inline.md-form.form-sm.active-pink.mt-0
+                  //-   i.fas.fa-search(aria-hidden="true")
+                  //-   input.form-control.form-control-sm.ml-3.w-75(type="text" placeholder="Search" aria-label="Search")             
+
+            div.contentbar
+              h5(style="color: #f3cc2f") Categories
+              a(href="javascript:void(0)" class="closebtn" onclick="closeBar()") &times;
+              a(href="#") Rims   
+              a(href="#") Spoilers     
+              a(href="#") Hoods     
+              a(href="#") Tyres
+              a(href="#") Interior Design                        
+              h5(style="color: #f3cc2f") Services
+              a(href="#") Car pimping
+              a(href="#") Car Tuning
+              a(href="#") Full System Diagnosis
+              a(href="#") Free Oil Replacement
+
+
+          div.row(style="margin-left:40px")
+                
             if products
               for prod in products                              
                 div.col
@@ -215,6 +250,26 @@ html
               else
                 div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
 
+      div#id01.signinmodal  
+        form.modal-content.animate(method="POST" action='/users/login')
+          div.imgcontainer            
+            img(src="/images/team/login.png" alt="Avatar" class="avatar")        
+          div.container            
+            label(for="username") 
+              b Username
+            input(type="text" placeholder="Enter Username" name="username" required)
+
+            label(for="password")
+              b Password
+            input(type="password" placeholder="Enter Password" name="password" required)
+              
+            button(type="submit") Sign in            
+          div.container(style="background-color:#f1f1f1")
+            button(type="button" onclick="document.getElementById('id01').style.display='none'").cancelbtn Cancel
+            span.psw Don't have an Account? 
+              a(href="/users/signup") Sign Up
+          
+
       div#copyright_home.container-fluid     
         p.icons
           a(href="https://www.instagram.com/?hl=en")
@@ -235,37 +290,7 @@ html
     script(src="/javascripts/animatedModal.min.js")
     script(src="/javascripts/scripts.js")
     script.
-      AOS.init();
-      //- // Wrap every letter in a span
-      //- var textWrapper = document.querySelector('.ml14 .letters');
-      //- textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
-
-      //- anime.timeline({loop: true})
-      //-   .add({
-      //-     targets: '.ml14 .line',
-      //-     scaleX: [0,1],
-      //-     opacity: [0.5,1],
-      //-     easing: "easeInOutExpo",
-      //-     duration: 900
-      //-   }).add({
-      //-     targets: '.ml14 .letter',
-      //-     opacity: [0,1],
-      //-     translateX: [40,0],
-      //-     translateZ: 0,
-      //-     scaleX: [0.3, 1],
-      //-     easing: "easeOutExpo",
-      //-     duration: 800,
-      //-     offset: '-=600',
-      //-     delay: (el, i) => 150 + 25 * i
-      //-   }).add({
-      //-     targets: '.ml14',
-      //-     opacity: 0,
-      //-     duration: 1500,
-      //-     easing: "easeOutExpo",
-      //-     delay: 1500
-      //-   }); 
-
-      //- services        
+      AOS.init();      
       var textWrapper = document.querySelector('.ml12');
       textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
@@ -335,10 +360,11 @@ html
           if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
             document.getElementById("header").style.display = "none";                      
             document.getElementById("headernext").style.display = "block";             
-
+            document.getElementById("headernext").style.top = "0px";
           } else {
             document.getElementById("header").style.display = "block";                         
-            document.getElementById("headernext").style.display = "none";             
+            document.getElementById("headernext").style.display = "none";    
+            document.getElementById("headernext").style.top = "-50px";         
           }
         }
 
@@ -348,6 +374,23 @@ html
 
         function closeNav() {
           document.getElementById("mySidenav").style.width = "0";
+        }
+
+        function openBar() {
+          document.getElementById("mySidebar").style.width = "250px";
+        }
+
+        function closeBar() {
+          document.getElementById("mySidebar").style.width = "50px";
+        }
+        //- signin modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
 
  
