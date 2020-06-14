@@ -7,7 +7,7 @@ This project was generated with [NodeJS](https://nodejs.org/en/) version 12.17.0
 To view the site Click [Pimp & Ride.com](https://pimpandride.herokuapp.com/)
 
 ## Author: 
-  * [Peter Mirithu](https://github.com/petermirithu/Bemac_LTD)
+  * [Peter Mirithu](https://github.com/petermirithu/Pimp-and-Ride)
 
 #### Authors' information
 *Peter Mirithu*
@@ -46,8 +46,8 @@ To view the site Click [Pimp & Ride.com](https://pimpandride.herokuapp.com/)
   Here's a brief introduction on what a developer must do in order to start running the app locally:
 
   ```
-  $ git clone (https://github.com/petermirithu/Bemac_LTD)
-  $ cd Betmac_LTD/
+  $ git clone (https://github.com/petermirithu/Pimp-and-Ride.git)
+  $ cd Pimp-and-Ride/
   ```  
   * Run npm install to install al dependencies.
   * Create your own database
@@ -78,7 +78,7 @@ To view the site Click [Pimp & Ride.com](https://pimpandride.herokuapp.com/)
  ## License
   This project is licensed by [MIT License](LICENSE.txt)<br>
                 Copyright (c) <br>
-                [Peter Mirithu](https://github.com/petermirithu/Bemac_LTD) <br>
+                [Peter Mirithu](https://github.com/petermirithu/Pimp-and-Ride) <br>
                   2020<br>
   
   
