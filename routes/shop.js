@@ -28,8 +28,9 @@ router.use( function isAuthenticated(req, res, next) {
     return next();      
   }
   else{
-    req.session.redirectTo = req.originalUrl;         
-    res.redirect('/users/signin');    
+    req.session.redirectTo = req.originalUrl; 
+    req.flash('success','Please Sign In if you have an Account'),            
+    res.redirect('/users/signup');    
   }
 })
 

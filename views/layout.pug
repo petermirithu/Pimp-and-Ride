@@ -30,11 +30,12 @@ html
             a(href="/" accesskey="1" title="") Home
           li
             a(href="/about") About Us       
-
+          li
+            a(href="/services") Services 
           if user
             if user.admin==true
               li
-                a(href="/shop/form" accesskey="2" title="") Post Prod             
+                a(href="/shop/form" accesskey="2" title="") Post             
                     
           li
             a#cartbadge(href="#cartmodal" accesskey="4" title="")
@@ -51,7 +52,7 @@ html
               a(href="/users/logout" accesskey="5" title="") Sign Out  
           else
             li
-              a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
+              a(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
 
       div.smallmenu(onclick="openNav()")
         i.fas.fa-bars
@@ -66,12 +67,13 @@ html
     div#mySidenav.sidenav
       a(href="javascript:void(0)" class="closebtn" onclick="closeNav()") &times;
       a(href="/" accesskey="1" title="") Home
-      a(href="/about") About Us       
+      a(href="/about") About Us    
+      a(href="/services") Services 
       if user
         a(href="/users/profile" accesskey="5" title="") Profile   
         a(href="/users/logout" accesskey="5" title="") Sign Out                 
       else  
-        a(href="/users/signin" accesskey="5" title="Sign In") Sign In   
+        a(accesskey="5" style="cursor:pointer;color:#FFE3EA;" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
 
     div#header-wrapper                  
       div#header.container-fluid
@@ -86,11 +88,12 @@ html
               a(href="/" accesskey="1" title="") Home
             li
               a(href="/about") About Us       
-
+            li
+              a(href="/services") Services 
             if user
               if user.admin==true
                 li
-                  a(href="/shop/form" accesskey="2" title="") Post Prod             
+                  a(href="/shop/form" accesskey="2" title="") Post
                       
             li
               a#cartbadge3(href="#cartmodal" accesskey="4" title="")
@@ -107,7 +110,7 @@ html
                 a(href="/users/logout" accesskey="5" title="") Sign Out  
             else
               li
-                a(href="/users/signin" accesskey="5" title="Sign In") Sign In                
+                a(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
         div.smallmenu(onclick="openNav()")
           i.fas.fa-bars
           
@@ -119,9 +122,16 @@ html
             span#cartCount2 0
             
     if successes
-      div.notification                                                 
+      div.notification                                                         
         for success in successes
+          if success=='Please Sign In if you have an Account'
             div.alert.alert-success #{ success }
+              span=":~ "
+              span
+                a(accesskey="5" style="cursor:pointer;color:#005DE4" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
+          else  
+            div.alert.alert-success #{ success }
+
     if errors
       div.notification                                                 
         for error, i in errors
@@ -156,6 +166,25 @@ html
               else  
                 div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
 
+    div#id01.signinmodal  
+      form.modal-content.animate(method="POST" action='/users/login')
+        div.imgcontainer            
+          img(src="/images/team/login.png" alt="Avatar" class="avatar")        
+        div.container            
+          label(for="username") 
+            b Username
+          input(type="text" placeholder="Enter Username" name="username" required)
+
+          label(for="password")
+            b Password
+          input(type="password" placeholder="Enter Password" name="password" required)
+            
+          button(type="submit") Sign in            
+        div.container(style="background-color:#f1f1f1")
+          button(type="button" onclick="document.getElementById('id01').style.display='none'").cancelbtn Cancel
+          span.psw Don't have an Account? 
+            a(href="/users/signup") Sign Up
+          
     div#copyright.container-fluid     
         p.icons
           a(href="https://www.instagram.com/?hl=en")

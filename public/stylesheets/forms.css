@@ -1,3 +1,33 @@
+* {
+    box-sizing: border-box;
+}    
+.wrap {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	    flex-wrap: wrap;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: row;
+            flex-direction: row;
+}
+.column {    
+	width: 600px;	
+}
+@media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+}
 .form{
     box-shadow:
     0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -10,4 +40,32 @@
 
 body{
     background: #EEF2F7;
+}
+.ml14 {
+    font-weight: 200;
+    font-size: 2.2em;
+  }
+  
+.ml14 .text-wrapper {
+position: relative;
+display: inline-block;
+padding-top: 0.1em;
+padding-right: 0.05em;
+padding-bottom: 0.15em;
+}
+
+.ml14 .line {
+opacity: 0;
+position: absolute;
+left: 0;
+height: 2px;
+width: 100%;
+background-color: #B9134F;
+transform-origin: 100% 100%;
+bottom: 0;
+}
+
+.ml14 .letter {
+display: inline-block;
+line-height: 1em;
 }

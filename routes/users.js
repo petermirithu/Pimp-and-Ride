@@ -39,15 +39,6 @@ router.get('/signup',async function(req, res) {
   }
   res.render('signup', { title: 'Sign Up',cart:cart });
 });
-router.get('/signin', async function(req, res) {
-  var cart=null
-  if (req.user){
-    cart = await Cart.findOne(
-      {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}]},    
-      {where:{userId:req.user.id,ordered:false}})        
-  }
-  res.render('signin', { title: 'Sign In',cart:cart });
-});
 
 router.get('/profile',isAuthenticated,async(req,res) => {
   let profile= await Profile.findOne({where: {userId: req.user.id}})
@@ -123,7 +114,7 @@ router.post('/register',function(req,res){
         const hashedpwd=hash
         return User.create({ username:username, email:email, password:hashedpwd}).then(
           req.flash('success','You are now registered and can Log in'),
-          res.redirect('/users/signin')                                      
+          res.redirect('/')                                      
         );                          
       })
     })    
@@ -133,7 +124,7 @@ router.post('/register',function(req,res){
 router.post('/login',function(req,res,next){  
   passport.authenticate('local', {
     successRedirect: req.session.redirectTo || '/',
-    failureRedirect:'/users/signin',
+    failureRedirect:'/',
     failureFlash:true,
   })(req,res,next);    
 });
