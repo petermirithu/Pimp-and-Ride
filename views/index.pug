@@ -1,406 +1,256 @@
 doctype html
-html
-  head
-    meta(charset="utf-8")
-    meta(http-equiv="Content-Type" content="text/html; charset=utf-8")    
-    title= title
-    link(rel="shortcut icon" type="image" href="/images/logo.jpg")    
-    link(rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css")
-    link(href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet")
-    link(href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet")
-    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
-    link(rel='stylesheet', href='/stylesheets/normalize.min.css')
-    link(rel='stylesheet', href='/stylesheets/animate.min.css')
-    link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')    
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(name='description' content='')
+  meta(name='author' content='pyra')
+  title=title
+  link(rel="shortcut icon" type="image" href="/images/logo.jpg")  
+  link(rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css")  
+  link(href='https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap' rel='stylesheet')
+  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")        
+  link(href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet")
+  link(href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet")
+  link(href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet")
+  link(rel='stylesheet', href='/stylesheets/normalize.min.css')
+  link(rel='stylesheet', href='/stylesheets/animate.min.css')
+  link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
+  link(rel='stylesheet' href='/stylesheets/templatemo-sixteen.css')
+  link(rel='stylesheet' href='/stylesheets/owl.css')
+  //- link(rel='stylesheet', href='/stylesheets/style.css')   
+                       
+#preloader
+  .jumper
+    div
+    div
+    div
 
+header
+  nav.navbar.navbar-expand-lg
+    .container
+      a.navbar-brand(href='/')
+        h2
+          | Pimp & 
+          em Ride
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarResponsive' aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarResponsive.collapse.navbar-collapse
+        ul.navbar-nav.ml-auto
+          li.nav-item.active
+            a.nav-link(href='/')
+              | Home
+              span.sr-only (current)          
+          li.nav-item
+            a.nav-link(href='/about') About Us
 
-  body    
-    block content       
-      div#headernext.container-fluid(style="background-color:black")
-        div#logo                   
-          a(href="/")            
-            img#logoimage(src="/images/logo.jpg" alt="logo" style="border-radius:50%")                                              
-            span.ml5
-              span.text-wrapper
-                span.line.line1
-                span.letters.letters-left Pimp
-                span.letters.ampersand &amp;
-                span.letters.letters-right Ride
-                span.line.line2                            
-        div#menu
-          ul
-            li.active
-              a(href="/" accesskey="1" title="") Home
+          li.nav-item
+            a#cartbadge(href="#cartmodal" accesskey="4" title="")
+              i.fa(style="font-size:40px") &#xf07a;                  
+              if cart               
+                span#cartCount2=cart.Cart.length
+              else  
+                span#cartCount2 0    
+          li.nav-item
+            a.nav-link(href='/contact') Contact Us
+          if user                
+            li.dropdown.show
+              a.nav-link.dropdown-toggle(href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" Dropdown) Account
+              div.dropdown-menu(aria-labelledby="dropdownMenuLink")                
+                a.dropdown-item(href="/users/profile") Profile                  
+                a.dropdown-item(href="/users/logout") Sign Out                              
+          else
             li
-              a(href="/about") About Us       
-            li
-                a(href="/services") Services 
-            if user
-              if user.admin==true
-                li
-                  a(href="/shop/form" accesskey="2" title="") Post             
-                      
-            li
-              a#cartbadge(href="#cartmodal" accesskey="4" title="")
-                i.fa(style="font-size:24px") &#xf07a;                  
-                if cart               
-                  span#cartCount=cart.Cart.length
-                else  
-                  span#cartCount 0
-
-            if user                
-              li.dropdown
-                div.dropbtn Account 
-                  i.fa.fa-caret-down                
-                div.dropdown-content
-                  a(href="/users/profile" accesskey="5" title="") Profile                  
-                  a(href="/users/logout" accesskey="5" title="") Sign Out  
-            else
-              li
-                a(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
-            li    
-              a(href="")
-
-        div.smallmenu(onclick="openNav()")
-          i.fas.fa-bars
-
-        a#cartbadge2(href="#cartmodal" accesskey="4" title="")
-          i.fa(style="font-size:40px") &#xf07a;                  
-          if cart               
-            span#cartCount2=cart.Cart.length
-          else  
-            span#cartCount2 0
-        
-
-      div#mySidenav.sidenav
-        a(href="javascript:void(0)" class="closebtn" onclick="closeNav()") &times;
-        a(href="/" accesskey="1" title="") Home
-        a(href="/about") About Us       
-        a(href="/services") Services    
-        if user
-          a(href="/users/profile" accesskey="5" title="") Profile   
-          a(href="/users/logout" accesskey="5" title="") Sign Out                 
-        else  
-          a(accesskey="5" style="cursor:pointer;color:#FFE3EA;" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
-
-      div#header-wrapper                  
-        div#header.container-fluid
-          div#logo                   
-            a(href="/")            
-              img#logoimage(src="/images/logo.jpg" alt="logo" style="border-radius:50%")                                              
-              span(style="font-family: 'Kavoon', cursive;font-size: 2.5em;font-weight: 300;") Pimp & Ride                                         
-
-          div#menu
-            ul
-              li.active
-                a(href="/" accesskey="1" title="") Home
-              li
-                a(href="/about") About Us       
-              li
-                a(href="/services") Services       
-
-              if user
-                if user.admin==true
-                  li
-                    a(href="/shop/form" accesskey="2" title="") Post             
-                        
-              li
-                a#cartbadge3(href="#cartmodal" accesskey="4" title="")
-                  i.fa(style="font-size:24px") &#xf07a;                  
-                  if cart               
-                    span#cartCount=cart.Cart.length
-                  else  
-                    span#cartCount 0
-
-              if user                
-                li.dropdown
-                  div.dropbtn Account 
-                    i.fa.fa-caret-down                
-                  div.dropdown-content
-                    a(href="/users/profile" accesskey="5" title="") Profile                  
-                    a(href="/users/logout" accesskey="5" title="") Sign Out  
-              else
-                li
-                  a(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
-              li    
-                a(href="")
-                              
-
-          div.smallmenu(onclick="openNav()")
-            i.fas.fa-bars
-            
-          a#cartbadge4(href="#cartmodal" accesskey="4" title="")
-            i.fa(style="font-size:40px") &#xf07a;                  
-            if cart               
-              span#cartCount2=cart.Cart.length
-            else  
-              span#cartCount2 0
-
-
-        if successes
-          div.notification                                                 
-            for success in successes
-                div.alert.alert-success #{ success }
-        if errors
-          div.notification                                                 
-            for error, i in errors
-                div.alert.alert-danger #{ error }
-        div#banner-wrapper
-          div#banner.container
-            div.row
-              div.col
-                div.title
-                  h1.ml12 Welcome to Pimp & Ride                                    
-                  span.byline Access customised car parts just by the click of a button.
-                ul.actions
-                  li                                
-                    a(href="#products").button
-                      i.fas.fa-cart-arrow-down                             
-              div.col
-                div.title.services                
-                  h2 Services                                                                 
-                  p(style="color: #FFE3EA") This could be your car after taking part in our services.
-                  div.pic-ctn                                    
-                    img(src="/images/homestuff/bwm.jpeg" alt="" width="200px"  class="pic")                                          
-                    img(src="/images/homestuff/ford.jpeg" alt="" width="200px" class="pic")                     
-                    img(src="/images/homestuff/interior.jpeg" alt="" width="200px" class="pic")                     
-                    img(src="/images/homestuff/mustang.jpeg" alt="" width="200px" class="pic") 
-                    img(src="/images/homestuff/spoiler.jpeg" alt="" width="200px" class="pic")                                             
-
-      div#products          
-        h1.text-center Products                           
-        div.container-fluid
-          div#mySidebar.sidebar          
-            div.barmenu
-              div Menu
-                span(onclick="openBar()" style="cursor:pointer") 
-                  i.fas.fa-angle-double-right   
-                span                                              
-                  i.fab.fa-instagram(style="padding:10px")
-                  i.fab.fa-twitter(style="padding:10px")
-                  i.fab.fa-facebook(style="padding:10px")
-                  i.far.fa-envelope(style="padding:10px")   
-                  //- form.form-inline.md-form.form-sm.active-pink.mt-0
-                  //-   i.fas.fa-search(aria-hidden="true")
-                  //-   input.form-control.form-control-sm.ml-3.w-75(type="text" placeholder="Search" aria-label="Search")             
-
-            div.contentbar
-              h5(style="color: #f3cc2f") Categories
-              a(href="javascript:void(0)" class="closebtn" onclick="closeBar()") &times;
-              a(href="#") Rims   
-              a(href="#") Spoilers     
-              a(href="#") Hoods     
-              a(href="#") Tyres
-              a(href="#") Interior Design                        
-              h5(style="color: #f3cc2f") Services
-              a(href="/services") Car pimping
-              a(href="/services") Car Tuning
-              a(href="/services") Full System Diagnosis
-              a(href="/services") Free Oil Replacement
-
-
-          div.row(style="margin-left:40px")
-                
-            if products
-              for prod in products                              
-                div.col
-                  div.page-inner
-                    div.row
-                      div.el-wrapper
-                        div.box-up
-                          img.img(src='/uploads/products/'+prod.image width="50%" alt="product")                                                   
-                          div.img-info
-                            div.info-inner
-                              span.p-name=prod.name
-                              span.p-category=prod.Category.name
-                            
-                            div.a-descri Description : 
-                              span.descri=prod.description
-
-                        div.box-down
-                          div.h-bg
-                            div.h-bg-inner                  
-
-                          a.cart(href="/shop/add/to/cart/"+prod.id)
-                            span.price="KSH "+prod.price
-                              span=" "
-                              i.fas.fa-cart-plus
-                            span.add-to-cart
-                              span.txt Add to Cart                                                                      
-                  br            
-                  
-
-      div#cartmodal            
-        div#btn-close-modal.close-cartmodal
-          i.fas.fa-times-circle
-          p Exit            
-          h1 Cart    
-        div.modal-content(style="background:transparent")                    
-          div.container
-              if cart
-                if cart.total>0
-                  h6.text-center(style="color:white")="Total: ksh "+cart.total
-                  a.text-center.btn.btn-warning(href="/shop/ordersummary", style="margin:auto;display:block;") Proceed to CheckOut                                                   
-                  div.wrap
-                    for item in cart.Cart                             
-                      div.box
-                        h5.card-header
-                          b=item.Product.name
-                        div.card-body                                                      
-                          img(src="/uploads/products/"+item.Product.image width="70px")
-                          p="Price: @ ksh "+item.Product.price                        
-                          p="Quantity: "+item.quantity                        
-                          a(href="/shop/remove/from/cart/"+item.Product.id)
-                            i.fas.fa-times-circle Remove
-                else
-                  div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
-
-              else
-                div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
-
-      div#id01.signinmodal  
-        form.modal-content.animate(method="POST" action='/users/login')
-          div.imgcontainer            
-            img(src="/images/team/login.png" alt="Avatar" class="avatar")        
-          div.container            
-            label(for="username") 
-              b Username
-            input(type="text" placeholder="Enter Username" name="username" required)
-
-            label(for="password")
-              b Password
-            input(type="password" placeholder="Enter Password" name="password" required)
+              a.nav-link(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
               
-            button(type="submit") Sign in            
-          div.container(style="background-color:#f1f1f1")
-            button(type="button" onclick="document.getElementById('id01').style.display='none'").cancelbtn Cancel
-            span.psw Don't have an Account? 
-              a(href="/users/signup") Sign Up
-          
+  if successes
+    div.notification                                                 
+      for success in successes
+        div.alert.alert-dismissible.fade.show(style="background-color:lightgreen" role="alert")
+          strong
+            span #{ success }
+          button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+            span(aria-hidden="true") &times;           
+  if errors
+    div.notification                                                 
+      for error, i in errors
+        div.alert.alert-dismissible.fade.show(style="background-color:red;color:white" role="alert")
+          strong
+            span #{ error }
+          button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+            span(aria-hidden="true") &times;                     
 
-      div#copyright_home.container-fluid     
-        p.icons
-          a(href="https://www.instagram.com/?hl=en")
+  // Page Content
+.banner.header-text
+  .owl-banner.owl-carousel
+    .banner-item-01
+      .text-content
+        h4 Classic Car Parts
+        h2 New Arrivals On Sale
+    .banner-item-02
+      .text-content
+        h4 Flash Deals
+        h2 Get your Car's Interior Designed
+    .banner-item-03
+      .text-content
+        h4 Tuning Deals
+        h2 Best Tuning Deals Available
+// Banner Ends Here
+.latest-products
+  .container
+    .row
+      .col-md-12
+        .section-heading
+          h2 Latest Products
+                    
+          div.categories_y
+            ul                
+              li(style="display: inline-block;")
+                a.categories_x.active(href="#") All Products                                 
+              li(style="display: inline-block;")
+                a.categories_x(href="/products/Rims") Rims
+              li(style="display: inline-block;")
+                a.categories_x(href="/products/Spoilers") Spoilers
+              li(style="display: inline-block;")
+                a.categories_x(href="/products/Hood") Hood
+              li(style="display: inline-block;")
+                a.categories_x(href="/products/Tyres") Tyres
+              li(style="display: inline-block;")
+                a.categories_x(href="/products/Interior Design") Interior Design
+
+      if products
+        for prod in products                              
+          div.col
+            div.page-inner
+              div.row
+                div.el-wrapper
+                  div.box-up
+                    img.img(src='/uploads/products/'+prod.image width="50%" alt="product")                                                   
+                    div.img-info
+                      div.info-inner
+                        span.p-name=prod.name
+                        span.p-category=prod.Category.name
+                      
+                      div.a-descri Description : 
+                        span.descri=prod.description
+
+                  div.box-down
+                    div.h-bg
+                      div.h-bg-inner                  
+
+                    a.cart(href="/shop/add/to/cart/"+prod.id)
+                      span.price="KSH "+prod.price
+                        span=" "
+                        i.fas.fa-cart-plus
+                      span.add-to-cart
+                        span.txt Add to Cart                                                                      
+            br            
+
+.best-features
+  .container
+    .row
+      .col-md-12
+        .section-heading
+          h2 About Pimp & Ride
+      .col-md-6
+        .left-content
+          h4 Looking for the best pimping services and products?
+          p Well, you just in the right place. We are a company that have invested heavily on car customising and also invested on our employees skills and doing all types of work concerning your car modification.
+          p We are have specialised in:
+          ul.featured-list
+            li
+              a(href='#') Car pimping
+            li
+              a(href='#') Full System Diagnosis
+            li
+              a(href='#') Car Tuning
+            li
+              a(href='#') Free Oil replacement on visiting us.
+                          
+          a.filled-button(href='/about') Read More
+      .col-md-6
+        .right-image
+          img(src='https://images.unsplash.com/photo-1581020296922-1f7baa581f12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1296&q=80' alt='')
+div#cartmodal            
+  div#btn-close-modal.close-cartmodal
+    i.fas.fa-times-circle
+    p Exit            
+    h1 Cart    
+  div.modal-content(style="background:transparent")                    
+    div.container
+        if cart
+          if cart.total>0
+            h6.text-center(style="color:white")="Total: ksh "+cart.total
+            a.text-center.btn.btn-warning(href="/shop/ordersummary", style="margin:auto;display:block;") Proceed to CheckOut                                                   
+            div.wrap
+              for item in cart.Cart                             
+                div.box
+                  h5.card-header
+                    b=item.Product.name
+                  div.card-body                                                      
+                    img(src="/uploads/products/"+item.Product.image width="70px")
+                    p="Price: @ ksh "+item.Product.price                        
+                    p="Quantity: "+item.quantity                        
+                    a(href="/shop/remove/from/cart/"+item.Product.id)
+                      i.fas.fa-times-circle Remove
+          else
+            div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
+
+        else
+          div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                             
+
+div#id01.signinmodal  
+  form.modal-content.animate(method="POST" action='/users/login')
+    div.imgcontainer            
+      img(src="/images/team/login.png" alt="Avatar" class="avatar")        
+    div.container            
+      label(for="username") 
+        b Username
+      input(type="text" placeholder="Enter Username" name="username" required)
+
+      label(for="password")
+        b Password
+      input(type="password" placeholder="Enter Password" name="password" required)
+        
+      button(type="submit") Sign in            
+    div.container(style="background-color:#f1f1f1")
+      button(type="button" onclick="document.getElementById('id01').style.display='none'").cancelbtn Cancel
+      span.psw Don't have an Account? 
+        a(href="/users/signup") Sign Up
+
+footer
+  .container
+    .row
+      .col-md-12
+          a(style="padding: 10px;color: black;" href="https://www.instagram.com/?hl=en")
             i.fab.fa-instagram
-          a(href="https://twitter.com/login?lang=en")
+          a(style="padding: 10px;color: black;" href="https://twitter.com/login?lang=en")
             i.fab.fa-twitter
-          a(href="https://www.facebook.com/")
+          a(style="padding: 10px;color: black;" href="https://www.facebook.com/")
             i.fab.fa-facebook
-          a(href="mailto: peter_mirithu@yahoo.com")
+          a(style="padding: 10px;color: black;" href="mailto: peter_mirithu@yahoo.com")
             i.far.fa-envelope
-        p &copy; 2020. All rights reserved. | Designed by
-          a(href="https://github.com/petermirithu") Peter Mirithu | Software Developer
+          p Copyright &copy; 2020 All rights reserved. Pimp & Ride Co., Ltd.                      
+          p(style="padding-bottom:20px") Designed By :                        
+            a(rel='nofollow noopener' href="https://github.com/petermirithu" target='_blank') Peter Mirithu | Software Developer          
 
     script(src="/javascripts/jquery.min.js")        
     script(src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js")
     script(src="https://unpkg.com/aos@2.3.1/dist/aos.js")
     script(src="https://kit.fontawesome.com/8311960bd4.js" crossorigin="anonymous")
-    script(src="/javascripts/animatedModal.min.js")
+    script(src="/javascripts/animatedModal.min.js")    
+    script(src='/javascripts/bootstrap.bundle.min.js')
+    script(src='/javascripts/custom.js')
+    script(src='/javascripts/owl.js')
+    script(src='/javascripts/slick.js')
+    script(src='/javascripts/isotope.js')
+    script(src='/javascripts/accordions.js')
     script(src="/javascripts/scripts.js")
     script.
-      AOS.init();      
-      var textWrapper = document.querySelector('.ml12');
-      textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
-
-      anime.timeline({loop: true})
-        .add({
-          targets: '.ml12 .letter',
-          translateX: [40,0],
-          translateZ: 0,
-          opacity: [0,1],
-          easing: "easeOutExpo",
-          duration: 1200,
-          delay: (el, i) => 500 + 30 * i
-        }).add({
-          targets: '.ml12 .letter',
-          translateX: [0,-30],
-          opacity: [1,0],
-          easing: "easeInExpo",
-          duration: 1100,
-          delay: (el, i) => 100 + 30 * i
-        });
-
-      //- logo stuff
-      anime.timeline({loop: true})
-        .add({
-          targets: '.ml5 .line',
-          opacity: [0.5,1],
-          scaleX: [0, 1],
-          easing: "easeInOutExpo",
-          duration: 700
-        }).add({
-          targets: '.ml5 .line',
-          duration: 600,
-          easing: "easeOutExpo",
-          translateY: (el, i) => (-0.625 + 0.625*2*i) + "em"
-        }).add({
-          targets: '.ml5 .ampersand',
-          opacity: [0,1],
-          scaleY: [0.5, 1],
-          easing: "easeOutExpo",
-          duration: 600,
-          offset: '-=600'
-        }).add({
-          targets: '.ml5 .letters-left',
-          opacity: [0,1],
-          translateX: ["0.5em", 0],
-          easing: "easeOutExpo",
-          duration: 600,
-          offset: '-=300'
-        }).add({
-          targets: '.ml5 .letters-right',
-          opacity: [0,1],
-          translateX: ["-0.5em", 0],
-          easing: "easeOutExpo",
-          duration: 600,
-          offset: '-=600'
-        }).add({
-          targets: '.ml5',
-          opacity: 0,
-          duration: 1000,
-          easing: "easeOutExpo",
-          delay: 1000
-        });
-
-        //- navbar 
-        window.onscroll = function() {scrollFunction()};
-        function scrollFunction() {
-          if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
-            document.getElementById("header").style.display = "none";                      
-            document.getElementById("headernext").style.display = "block";             
-            document.getElementById("headernext").style.top = "0px";
-          } else {
-            document.getElementById("header").style.display = "block";                         
-            document.getElementById("headernext").style.display = "none";    
-            document.getElementById("headernext").style.top = "-50px";         
-          }
-        }
-
-        function openNav() {
-          document.getElementById("mySidenav").style.width = "250px";
-        }
-
-        function closeNav() {
-          document.getElementById("mySidenav").style.width = "0";
-        }
-
-        function openBar() {
-          document.getElementById("mySidebar").style.width = "250px";
-        }
-
-        function closeBar() {
-          document.getElementById("mySidebar").style.width = "50px";
-        }
-        //- signin modal
-        var modal = document.getElementById('id01');
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
- 
-  
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+      cleared[t.id] = 1;  // you could use true and false, but that's more typing
+      t.value='';         // with more chance of typos
+      t.style.color='#fff';
+      }
+      }
