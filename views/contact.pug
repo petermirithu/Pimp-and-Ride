@@ -19,17 +19,14 @@ block content
             1. Go to Google Maps
             2. Click on your location point
             3. Click "Share" and choose "Embed map" tab
-            4. Copy only URL and paste it within the src="" field below
+            4. Copy only URL and paste it within the src="" field below          
           #map
-            iframe(src='https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed' width='100%' height='330px' frameborder='0' style='border:0' allowfullscreen='')
+            iframe(src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21950.548780063717!2d36.809329927708845!3d-1.2872392805076027!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d08f55777f%3A0x91924d2ab0af0482!2sKenyatta%20Avenue%20Uhuru%20Highway%20Roundabout!5e0!3m2!1sen!2ske!4v1593184944503!5m2!1sen!2ske" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0")
         .col-md-4
           .left-content
-            h4 About our office
-            p
-              | Lorem ipsum dolor sit amet, consectetur adipisic elit. Sed voluptate nihil eumester consectetur similiqu consectetur.
-              br
-              br
-              | Lorem ipsum dolor sit amet, consectetur adipisic elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti.
+            h4 About our office            
+            p We are located just opposite the kenyatta round about almost a few steps away from Nyayo Center.
+            p Our building is big bluish with grey strips.
             ul.social-icons
               li
                 a(href='#')
@@ -43,83 +40,26 @@ block content
               li
                 a(href='#')
                   i.fa.fa-behance
-  .send-message
-    .container
-      .row
-        .col-md-12
-          .section-heading
-            h2 Send us a Message
-        .col-md-8
-          .contact-form
-            form#contact(action='' method='post')
-              .row
-                .col-lg-12.col-md-12.col-sm-12
-                  fieldset
-                    input#name.form-control(name='name' type='text' placeholder='Full Name' required='')
-                .col-lg-12.col-md-12.col-sm-12
-                  fieldset
-                    input#email.form-control(name='email' type='text' placeholder='E-Mail Address' required='')
-                .col-lg-12.col-md-12.col-sm-12
-                  fieldset
-                    input#subject.form-control(name='subject' type='text' placeholder='Subject' required='')
-                .col-lg-12
-                  fieldset
-                    textarea#message.form-control(name='message' rows='6' placeholder='Your Message' required='')
-                .col-lg-12
-                  fieldset
-                    button#form-submit.filled-button(type='submit') Send Message
-        .col-md-4
-          ul.accordion
-            li
-              a Accordion Title One
-              .content
-                p
-                  | Lorem ipsum dolor sit amet, consectetur adipisic elit. Sed voluptate nihil eumester consectetur similiqu consectetur.
-                  br
-                  br
-                  | Lorem ipsum dolor sit amet, consectetur adipisic elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti elite.
-            li
-              a Second Title Here
-              .content
-                p
-                  | Lorem ipsum dolor sit amet, consectetur adipisic elit. Sed voluptate nihil eumester consectetur similiqu consectetur.
-                  br
-                  br
-                  | Lorem ipsum dolor sit amet, consectetur adipisic elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti elite.
-            li
-              a Accordion Title Three
-              .content
-                p
-                  | Lorem ipsum dolor sit amet, consectetur adipisic elit. Sed voluptate nihil eumester consectetur similiqu consectetur.
-                  br
-                  br
-                  | Lorem ipsum dolor sit amet, consectetur adipisic elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti elite.
-            li
-              a Fourth Accordion Title
-              .content
-                p
-                  | Lorem ipsum dolor sit amet, consectetur adipisic elit. Sed voluptate nihil eumester consectetur similiqu consectetur.
-                  br
-                  br
-                  | Lorem ipsum dolor sit amet, consectetur adipisic elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti elite.
+
   .happy-clients
     .container
       .row
         .col-md-12
           .section-heading
-            h2 Our Happy Customers
+            h2 Our Esteemed Partners
         .col-md-12
           .owl-clients.owl-carousel
             .client-item
-              img(src='assets/images/client-01.png' alt='1')
+              img(src='/images/services/bmw.jpg' alt='1')
             .client-item
-              img(src='assets/images/client-01.png' alt='2')
+              img(src='/images/services/merc.jpg' alt='2')
             .client-item
-              img(src='assets/images/client-01.png' alt='3')
+              img(src='/images/services/mist.png' alt='3')
             .client-item
-              img(src='assets/images/client-01.png' alt='4')
+              img(src='/images/services/toyota.gif' alt='4')
             .client-item
-              img(src='assets/images/client-01.png' alt='5')
+              img(src='/images/services/honda.jpg' alt='5')
             .client-item
-              img(src='assets/images/client-01.png' alt='6')
-
+              img(src='/images/services/must.png' alt='6')
+          p
+            b Swipe
