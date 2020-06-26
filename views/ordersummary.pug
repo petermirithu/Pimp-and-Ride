@@ -1,7 +1,14 @@
-extends layout
+extends layout---2
 block content
-    div.container        
-        h1.text-center Order Summary
+    .page-heading.order-heading.header-text
+        .container
+            .row
+                .col-md-12
+                    .text-content
+                        h4 Order Summary
+                        h2 Proceed to Payment
+
+    div.container                
         h6.text-center="Total to be paid: ksh "+cart.total
         div.container
             div.wrap
@@ -67,4 +74,25 @@ block content
                             div.container(style="background-color:#f1f1f1")
                                 button(type="button" onclick="document.getElementById('id03').style.display='none'").cancelbtn Cancel                                                           
 
-
+    .happy-clients
+      .container
+        .row
+          .col-md-12
+            .section-heading
+              h2 Our Esteemed Partners
+          .col-md-12
+            .owl-clients.owl-carousel
+              .client-item
+                img(src='/images/services/bmw.jpg' alt='1')
+              .client-item
+                img(src='/images/services/merc.jpg' alt='2')
+              .client-item
+                img(src='/images/services/mist.png' alt='3')
+              .client-item
+                img(src='/images/services/toyota.gif' alt='4')
+              .client-item
+                img(src='/images/services/honda.jpg' alt='5')
+              .client-item
+                img(src='/images/services/must.png' alt='6')
+            p
+              b Swipe
