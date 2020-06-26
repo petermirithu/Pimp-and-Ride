@@ -14,7 +14,7 @@ router.get('/', async(req, res) => {
       {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
       where:{userId:req.user.id,ordered:false}})        
   }
-  res.render('index---2', { title: 'Pimp & Ride',products:products,cart:cart});
+  res.render('index', { title: 'Pimp & Ride',products:products,cart:cart});
 });
 
 router.get('/products/:category', async(req, res) => {  
@@ -36,7 +36,7 @@ router.get('/about', async(req, res) => {
       {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
       where:{userId:req.user.id,ordered:false}})        
   }
-  res.render('about---2', { title: 'About Us',cart:cart});
+  res.render('about', { title: 'About Us',cart:cart});
 });
 
 router.get('/contact', async(req, res) => {
