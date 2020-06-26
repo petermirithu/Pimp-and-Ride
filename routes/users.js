@@ -8,6 +8,7 @@ const Profile = require("../models").profiles;
 const Cart = require("../models").cart;
 const Order = require("../models").order;
 const Product = require("../models").products;
+const Delivery = require("../models").delivery;
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -24,8 +25,9 @@ function isAuthenticated(req, res, next) {
     return next();      
   }
   else{
-    req.session.redirectTo = req.originalUrl;         
-    res.redirect('/users/signin');    
+    req.session.redirectTo = req.originalUrl; 
+    req.flash('success','Please Sign In if you have an Account'),            
+    res.redirect('/users/signup');     
   }
 }
 
@@ -44,8 +46,12 @@ router.get('/profile',isAuthenticated,async(req,res) => {
   let profile= await Profile.findOne({where: {userId: req.user.id}})
   let cart = await Cart.findOne(
     {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],    
-     where:{userId:req.user.id,ordered:false}})        
-  res.render('profile',{title:'Profile',profile:profile,cart:cart})
+     where:{userId:req.user.id,ordered:false}})     
+  
+  let orders = await Cart.findAll({include: [{model:Delivery,as:'Delivery'},{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
+            where:{userId:req.user.id,ordered:true}})    
+
+  res.render('profile',{title:'Profile',profile:profile,cart:cart,orders:orders})
 })
 
 router.get('/update/profile',isAuthenticated, async function(req, res) {
