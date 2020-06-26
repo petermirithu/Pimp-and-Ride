@@ -1,0 +1,70 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(name='description' content='')
+  meta(name='author' content='')
+  link(href='https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap' rel='stylesheet')
+  title= title
+  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")        
+  link(rel='stylesheet' href='/stylesheets/fontawesome.css')
+  link(rel='stylesheet' href='/stylesheets/templatemo-sixteen.css')
+  link(rel='stylesheet' href='/stylesheets/owl.css')
+
+#preloader
+  .jumper
+    div
+    div
+    div
+
+header
+  nav.navbar.navbar-expand-lg
+    .container
+      a.navbar-brand(href='index.html')
+        h2
+          | Pimp 
+          em Ride
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarResponsive' aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarResponsive.collapse.navbar-collapse
+        ul.navbar-nav.ml-auto
+          li.nav-item.active
+            a.nav-link(href='index.html')
+              | Home
+              span.sr-only (current)
+          li.nav-item
+            a.nav-link(href='products.html') Our Products
+          li.nav-item
+            a.nav-link(href='about.html') About Us
+          li.nav-item
+            a.nav-link(href='contact.html') Contact Us
+
+block content
+
+footer
+  .container
+    .row
+      .col-md-12
+        .inner-content
+          p
+            | Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
+            | - Design: 
+            a(rel='nofollow noopener' href='https://templatemo.com' target='_blank') TemplateMo
+
+script(src="/javascripts/jquery.min.js")       
+script(src='/javascripts/bootstrap/js/bootstrap.bundle.min.js')
+
+script(src='/javascripts/custom.js')
+script(src='/javascripts/owl.js')
+script(src='/javascripts/slick.js')
+script(src='/javascripts/isotope.js')
+script(src='/javascripts/accordions.js')
+script.
+  cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+  function clearField(t){                   //declaring the array outside of the
+  if(! cleared[t.id]){                      // function makes it static and global
+  cleared[t.id] = 1;  // you could use true and false, but that's more typing
+  t.value='';         // with more chance of typos
+  t.style.color='#fff';
+  }
+  }
