@@ -5,19 +5,20 @@ head
   meta(name='description' content='')
   meta(name='author' content='pyra')
   title=title
-  link(rel="shortcut icon" type="image" href="/images/logo.jpg")  
-  link(rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css")  
-  link(href='https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap' rel='stylesheet')
-  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")        
-  link(href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet")
-  link(href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet")
-  link(href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet")
-  link(rel='stylesheet', href='/stylesheets/normalize.min.css')
-  link(rel='stylesheet', href='/stylesheets/animate.min.css')
-  link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
-  link(rel='stylesheet' href='/stylesheets/templatemo-sixteen.css')
-  link(rel='stylesheet' href='/stylesheets/owl.css')
-  //- link(rel='stylesheet', href='/stylesheets/style.css')   
+  block links
+    link(rel="shortcut icon" type="image" href="/images/logo.jpg")  
+    link(rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css")  
+    link(href='https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap' rel='stylesheet')
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")        
+    link(href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet")
+    link(href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css2?family=Kavoon&display=swap" rel="stylesheet")
+    link(rel='stylesheet', href='/stylesheets/normalize.min.css')
+    link(rel='stylesheet', href='/stylesheets/animate.min.css')
+    link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
+    link(rel='stylesheet' href='/stylesheets/templatemo-sixteen.css')
+    link(rel='stylesheet' href='/stylesheets/owl.css')
+    //- link(rel='stylesheet', href='/stylesheets/style.css')   
 
 #preloader
   .jumper
@@ -61,6 +62,22 @@ header
             li
               a.nav-link(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id01').style.display='block'" title="Sign In") Sign In                                  
 
+  if successes
+      div.notification                                                 
+        for success in successes
+          div.alert.alert-dismissible.fade.show(style="background-color:green" role="alert")
+            strong
+              span #{ success }
+            button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+              span(aria-hidden="true") &times;           
+  if errors
+    div.notification                                                 
+      for error, i in errors
+        div.alert.alert-dismissible.fade.show(style="background-color:red" role="alert")
+          strong
+            span #{ error }
+          button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+            span(aria-hidden="true") &times;                     
 
 block content
 
