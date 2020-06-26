@@ -1,83 +1,165 @@
 extends layout
-block append links    
-    link(rel='stylesheet', href='/stylesheets/about.css')
+block content
 
-block content    
-    h1.text-center About Us            
-    p.aboutbyline.text-center Pimp your ride    
-    div.aboutus 
-        p Pimp & Ride is the name of the company. We are focused on pimping all sorts of vehicles ranging from small saloon cars all the way to long distane trucks.                            
-        p We offer pimping servcies right by the press of button where we come to where you are. We have well trained and educated engineers and creative personel who are responsible for the hands on job.
-        p We sell customised car parts too.        
+  // Page Content
+  .page-heading.about-heading.header-text
+    .container
+      .row
+        .col-md-12
+          .text-content
+            h4 about us
+            h2 our company
+  .best-features.about-features
+    .container
+      .row
+        .col-md-12
+          .section-heading
+            h2 Our Background
+        .col-md-6
+          .right-image
+            img(src='https://images.unsplash.com/photo-1470723710355-95304d8aece4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80' alt='')
+        .col-md-6
+          .left-content
+            h4 Who we are &amp; What we do?
+            p We are a company that have invested heavily on car customising and also invested on our employees skills and doing all types of work concerning your car modification.
+            p We believe in perfection and efficient serving of our customers.            
+            br
+            br              
+            ul.social-icons
+              li
+                a(href='#')
+                  i.fa.fa-facebook
+              li
+                a(href='#')
+                  i.fa.fa-twitter
+              li
+                a(href='#')
+                  i.fa.fa-linkedin
+              li
+                a(href='#')
+                  i.fa.fa-behance
+  .team-members
+    .container
+      .row
+        .col-md-12
+          .section-heading
+            h2 Our Team Members
+        .col-md-4
+          .team-member
+            .thumb-container
+              img(src='/images/team/man1.png' alt='')
+              .hover-effect
+                .hover-content
+                  ul.social-icons
+                    li
+                      a(href='#')
+                        i.fa.fa-facebook
+                    li
+                      a(href='#')
+                        i.fa.fa-twitter
+                    li
+                      a(href='#')
+                        i.fa.fa-linkedin
+                    li
+                      a(href='#')
+                        i.fa.fa-behance
+            .down-content
+              h4 Pyra              
+              span CEO & Software Developer
+              p I am a professional Software Developer and best Code Debugger you would ever find.
 
-    h1.text-center Our Team         
-    div.container-fluid
-        div.wrap
-            div.column(style="width:400px")
-                div.card
-                    img(src="/images/team/man1.png" alt="pyra" style="width:80%")
-                    div.container
-                        h2 Pyra
-                        p.title CEO & Software Developer
-                        p I am a professional Software Developer and best Code Debugger you would ever find.
-                        p pyra_m.k@yahoo.com
-                        p
-                            button.button Contact    
-
-            div.column(style="width:400px")
-                div.card
-                    img(src="/images/team/woman.png" alt="Cathie" style="width:80%")
-                    div.container
-                        h2 Cathie
-                        p.title Manager & Front-end Developer
-                        p I am a Front-end Developer and good at UI and UX Designing.
-                        p cathie@gmail.com
-                        p
-                            button.button Contact
-
-            div.column(style="width:400px")
-                div.card
-                    img(src="/images/team/man2.png" alt="Kevo" style="width:80%")
-                    div.container
-                        h2 Kevo
-                        p.title Project Manager & Back-end Developer
-                        p I am Back-end Developer and good at RESTful api application and Database management.
-                        p Kevo@outlook.com
-                        p
-                            button.button Contact
-                                    
-                        
-        //-     div.col
-        //-         div.box
-        //-             p Pimp & Ride is the name of the company. We are focused on pimping all sorts of vehicles ranging from small saloon cars all the way to long distane trucks.                    
-        //-     div.col
-        //-         div.box
-        //-             p We offer pimping servcies right by the press of button where we come to where you are. We have well trained and educated engineers and creative personel who are responsible for the hands on job.
-        //-             p We sell customised car parts too.        
-        //- div.row
-        //-     h4 You can find us via:
-        //-     ul
-        //-         li
-        //-             a(href="https://www.instagram.com/?hl=en")
-        //-                 i.fab.fa-instagram 
-        //-                 span=" "
-        //-                 span Instagram              
-        //-         li
-        //-             a(href="https://twitter.com/login?lang=en")
-        //-                 i.fab.fa-twitter
-        //-                 span=" "
-        //-                 span Twitter
-        //-         li
-        //-             a(href="https://www.facebook.com/")
-        //-                 i.fab.fa-facebook
-        //-                 span=" "
-        //-                 span Facebook
-        //-         li
-        //-             a(href="mailto: peter_mirithu@yahoo.com")
-        //-                 i.far.fa-envelope
-        //-                 span=" "
-        //-                 span Email
-                
-        
-        
-
+        .col-md-4
+          .team-member
+            .thumb-container
+              img(src='/images/team/woman.png' alt='')
+              .hover-effect
+                .hover-content
+                  ul.social-icons
+                    li
+                      a(href='#')
+                        i.fa.fa-facebook
+                    li
+                      a(href='#')
+                        i.fa.fa-twitter
+                    li
+                      a(href='#')
+                        i.fa.fa-linkedin
+                    li
+                      a(href='#')
+                        i.fa.fa-behance
+            .down-content
+              h4 Cathie
+              span Manager & Front-end Developer
+              p I am a Front-end Developer and good at UI and UX Designing.
+        .col-md-4
+          .team-member
+            .thumb-container
+              img(src='/images/team/man2.png' alt='')
+              .hover-effect
+                .hover-content
+                  ul.social-icons
+                    li
+                      a(href='#')
+                        i.fa.fa-facebook
+                    li
+                      a(href='#')
+                        i.fa.fa-twitter
+                    li
+                      a(href='#')
+                        i.fa.fa-linkedin
+                    li
+                      a(href='#')
+                        i.fa.fa-behance
+            .down-content
+              h4 Kevin Brayn
+              span Project Manager & Back-end Developer
+              p I am Back-end Developer and good at RESTful api application and Database management.                      
+  .services
+    .container
+      .row
+        .col-md-4
+          .service-item
+            .icon
+              i.fa.fa-gear
+            .down-content
+              h4 Car Pimping
+              p Comes with a team of ten members well equiped and with personal equipments needed for pimping.                
+              a With Martin.k as Lead Engineer
+        .col-md-4
+          .service-item
+            .icon
+              i.fa.fa-gear
+            .down-content
+              h4 Full System Diagnosis
+              p Your car gets to be fully diagonised including all computer systems in car the checked and repaired with immediate effect.                
+              a With Leah.T as Lead Mechatronix Engineer 
+        .col-md-4
+          .service-item
+            .icon
+              i.fa.fa-gear
+            .down-content
+              h4 Car Tuning
+              p Get your car tuned in all parts. Includes engine,exhaust,brakes and overall car operation.                
+              a With Maximillan Jeror as Lead Engineer
+  .happy-clients
+    .container
+      .row
+        .col-md-12
+          .section-heading
+            h2 Our Esteemed Partners
+        .col-md-12
+          .owl-clients.owl-carousel
+            .client-item
+              img(src='/images/services/bmw.jpg' alt='1')
+            .client-item
+              img(src='/images/services/merc.jpg' alt='2')
+            .client-item
+              img(src='/images/services/mist.png' alt='3')
+            .client-item
+              img(src='/images/services/toyota.gif' alt='4')
+            .client-item
+              img(src='/images/services/honda.jpg' alt='5')
+            .client-item
+              img(src='/images/services/must.png' alt='6')
+          p
+            b Swipe
