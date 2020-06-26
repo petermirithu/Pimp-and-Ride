@@ -1,0 +1,59 @@
+extends layout---2
+block content
+
+    .page-heading.products-heading.header-text
+        .container
+            .row
+                .col-md-12
+                    .text-content
+                        h4 The Best You Could Ever Have
+                        h2=title
+    .products
+        .container
+            .row
+                .col-md-12
+                    div.filters#filters
+                        ul                            
+                            li(style="display: inline-block;")
+                                a.categories_x(href="/") All Products                                 
+                            li(style="display: inline-block;")
+                                a.categories_x(href="/products/Rims") Rims
+                            li(style="display: inline-block;")
+                                a.categories_x(href="/products/Spoilers") Spoilers
+                            li(style="display: inline-block;")
+                                a.categories_x(href="/products/Hood") Hood
+                            li(style="display: inline-block;")
+                                a.categories_x(href="/products/Tyres") Tyres
+                            li(style="display: inline-block;")
+                                a.categories_x(href="/products/Interior Design") Interior Design                            
+                .col-md-12
+                    .filters-content
+                        .row
+                            if products
+                                for prod in products                              
+                                    div.col
+                                        div.page-inner
+                                            div.row
+                                                div.el-wrapper
+                                                    div.box-up
+                                                        img.img(src='/uploads/products/'+prod.image width="50%" alt="product")                                                   
+                                                        div.img-info
+                                                            div.info-inner
+                                                                span.p-name=prod.name
+                                                                span.p-category=prod.Category.name
+                                                            
+                                                            div.a-descri Description : 
+                                                                span.descri=prod.description
+
+                                                    div.box-down
+                                                        div.h-bg
+                                                            div.h-bg-inner                  
+
+                                                        a.cart(href="/shop/add/to/cart/"+prod.id)
+                                                            span.price="KSH "+prod.price
+                                                                span=" "
+                                                                i.fas.fa-cart-plus
+                                                            span.add-to-cart
+                                                                span.txt Add to Cart                                                                      
+                                        br                          
+                
