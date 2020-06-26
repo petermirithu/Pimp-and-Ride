@@ -28,7 +28,7 @@ head
 header
   nav.navbar.navbar-expand-lg
     .container
-      a.navbar-brand(href='index.html')
+      a.navbar-brand(href='/')
         h2
           | Pimp & 
           em Ride
@@ -37,13 +37,11 @@ header
       #navbarResponsive.collapse.navbar-collapse
         ul.navbar-nav.ml-auto
           li.nav-item.active
-            a.nav-link(href='index.html')
+            a.nav-link(href='/')
               | Home
-              span.sr-only (current)
+              span.sr-only (current)          
           li.nav-item
-            a.nav-link(href='products.html') Our Products
-          li.nav-item
-            a.nav-link(href='about.html') About Us
+            a.nav-link(href='/about') About Us
 
           li.nav-item
             a#cartbadge(href="#cartmodal" accesskey="4" title="")
@@ -53,7 +51,7 @@ header
               else  
                 span#cartCount2 0    
           li.nav-item
-            a.nav-link(href='contact.html') Contact Us
+            a.nav-link(href='/contact') Contact Us
           if user                
             li.dropdown.show
               a.nav-link.dropdown-toggle(href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" Dropdown) Account
@@ -86,8 +84,21 @@ header
       .col-md-12
         .section-heading
           h2 Latest Products
-          a(href="products.html") view all products 
-            i.fas.fa-angle-double-right 
+                    
+          div.categories_y
+            ul                
+              li(style="display: inline-block;")
+                a.categories_x.active(href="#") All Products                                 
+              li(style="display: inline-block;")
+                a.categories_x(href="/products/Rims") Rims
+              li(style="display: inline-block;")
+                a.categories_x(href="/products/Spoilers") Spoilers
+              li(style="display: inline-block;")
+                a.categories_x(href="/products/Hood") Hood
+              li(style="display: inline-block;")
+                a.categories_x(href="/products/Tyres") Tyres
+              li(style="display: inline-block;")
+                a.categories_x(href="/products/Interior Design") Interior Design
 
       if products
         for prod in products                              
