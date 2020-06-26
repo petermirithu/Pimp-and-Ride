@@ -1,65 +1,127 @@
-extends layout
+extends layout---2
 
-block content
-  
-    div.profile
-        h1.text-center=user.username+"'s profile"      
+block content      
+  .page-heading.profile-heading.header-text
+    .container
+      .row
+        .col-md-12
+          .text-content
+            h4 Profile
+            h2 Every opportunity Counts
+  .find-us
+    .container
+      .row
+        .col-md-12
+          .section-heading
+            h2=user.username+"'s profile"      
+        .col-md-6
+          if profile.profile_pic
+            img(src='/uploads/profile/'+profile.profile_pic width="50%" style="border-radius:50%" alt="profile")                                       
+          else
+            img(src='https://cdn.nohat.cc/thumb/f/720/comvecteezy377227.jpg' width="80px" style="border-radius:50%" alt="porfile")                                           
 
-    div.container-fluid    
-        div.wrap
-            div.column(style="width:600px")            
-                div.profilecard
-                    h6.card-header="Username: "+user.username
-                    div.card-body
-                        if profile.profile_pic
-                            img(src='/uploads/profile/'+profile.profile_pic width="80px" style="border-radius:50%" alt="profile")                                       
-                        else
-                            img(src='https://cdn.nohat.cc/thumb/f/720/comvecteezy377227.jpg' width="80px" style="border-radius:50%" alt="porfile")                                           
+          h6="Username: "+user.username        
+          hr
+          form(method='POST' enctype="multipart/form-data",  action='/users/update/profile/pic')      
+              #form-group
+                  label Change Profile Pic:                        
+                  input.form-control(name='photo',type='file')   
+              br
+              input.btn.btn-danger(type='submit',value='Change')                                                           
 
-                        form(method='POST' enctype="multipart/form-data",  action='/users/update/profile/pic')      
-                            #form-group
-                                label Change Profile Pic:                        
-                                input.form-control(name='photo',type='file')   
-                            br
-                            input.btn.btn-danger(type='submit',value='Change')                                                           
-                        
-            div.column(style="width:600px")
-                div.moreofu
-                    if profile
-                        h5="Full Name: "+profile.firstname+" "+profile.lastname           
-                    h5="Email: "+user.email    
-                    hr                    
-                    h5 About You
-                    if profile
-                        p=profile.about
-                    else
-                        a(href="/update/profile") Add About
+        .col-md-6
+          .left-content
+            h4 About Your.                
+            if profile
+              h6="Full Name: "+profile.firstname+" "+profile.lastname           
+              br
+              h6="Email: "+user.email                                   
+              br
+              h6 About You              
+              if profile
+                  p=profile.about
+              else
+                  p No About
+              
+              a.btncool(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id02').style.display='block'") Update profile                    
+        .col-md-12          
+          hr      
+          h2.text-center Orders      
+          if orders      
+            for cart in orders              
+              h6="Order: "+cart.id              
+              table
+                tr
+                  th Product Name                  
+                  th Image
+                  th Price
+                  th Quantity                  
+                for item in cart.Cart                             
+                  tr
+                    td=item.Product.name
+                    td 
+                      img(src="/uploads/products/"+item.Product.image width="40px")
+                    td=item.Product.price                        
+                    td=item.quantity            
+              br      
+              if cart.Delivery                                                      
+                h6="Delivery: "+cart.Delivery.name 
+                  span=" "
+                  span(style="color:red")="Cost: "+cart.Delivery.cost
 
-                    hr
-                    a.btncool(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id02').style.display='block'" title="Update profile") Update profile                    
+              else  
+                h6 Delivery: None
 
-        div#id02.updateprofilemodal  
-            form.modal-content.animate(method="POST" action='/users/profile')
-                div.imgcontainer            
-                    if profile.profile_pic
-                        img.avatar(src='/uploads/profile/'+profile.profile_pic width="80px" style="border-radius:50%" alt="profile")                                       
-                    else
-                        img.avatar(src='https://cdn.nohat.cc/thumb/f/720/comvecteezy377227.jpg' width="80px" style="border-radius:50%" alt="porfile")                                                               
-                    h1.text-center Update Profile                        
-                div.container            
-                    label(for="fname") 
-                        b First Name
-                    input(type="text" placeholder="Enter First name" name="fname" value=profile.firstname)
+              h6(style="color:blue")="Order Costed: "+cart.total      
+              hr
+          else  
+            p You have not Shopped with Us!
 
-                    label(for="lname")
-                        b Last Name
-                    input(type="text" placeholder="Enter Last name" name="lname" value=profile.lastname)
+  .happy-clients
+    .container
+      .row
+        .col-md-12
+          .section-heading
+            h2 Our Esteemed Partners
+        .col-md-12
+          .owl-clients.owl-carousel
+            .client-item
+              img(src='/images/services/bmw.jpg' alt='1')
+            .client-item
+              img(src='/images/services/merc.jpg' alt='2')
+            .client-item
+              img(src='/images/services/mist.png' alt='3')
+            .client-item
+              img(src='/images/services/toyota.gif' alt='4')
+            .client-item
+              img(src='/images/services/honda.jpg' alt='5')
+            .client-item
+              img(src='/images/services/must.png' alt='6')
+          p
+            b Swipe
 
-                    label(for="about")
-                        b About You
-                    input(name="about" type="text" value=profile.about)                 
+  div#id02.updateprofilemodal  
+    form.modal-content.animate(method="POST" action='/users/profile')
+        div.imgcontainer            
+            if profile.profile_pic
+                img.avatar(src='/uploads/profile/'+profile.profile_pic width="80px" style="border-radius:50%" alt="profile")                                       
+            else
+                img.avatar(src='https://cdn.nohat.cc/thumb/f/720/comvecteezy377227.jpg' width="80px" style="border-radius:50%" alt="porfile")                                                               
+            h1.text-center Update Profile                        
+        div.container            
+            label(for="fname") 
+                b First Name
+            input(type="text" placeholder="Enter First name" name="fname" value=profile.firstname)
 
-                    button(type="submit") Update Profile            
-                div.container(style="background-color:#f1f1f1")
-                    button(type="button" onclick="document.getElementById('id02').style.display='none'").cancelbtn Cancel                                                           
+            label(for="lname")
+                b Last Name
+            input(type="text" placeholder="Enter Last name" name="lname" value=profile.lastname)
+
+            label(for="about")
+                b About You
+            input(name="about" type="text" value=profile.about)                 
+
+            button(type="submit") Update Profile            
+        div.container(style="background-color:#f1f1f1")
+            button(type="button" onclick="document.getElementById('id02').style.display='none'").cancelbtn Cancel                                                                               
 
