@@ -1,8 +1,16 @@
-extends layout
+extends layout---2
 block append links    
     link(rel='stylesheet', href='/stylesheets/forms.css')
 
 block content
+    .page-heading.signup-heading.header-text
+        .container
+            .row
+                .col-md-12
+                    .text-content
+                        h4 Sign Up
+                        h2 Join Us for Exclusive Deals
+                
     div.container-fluid        
         div.wrap
             div.column               
@@ -45,6 +53,28 @@ block content
                     input.btn.btn-primary(type='submit',value='Submit')              
 
 
+    .happy-clients
+      .container
+        .row
+          .col-md-12
+            .section-heading
+              h2 Our Esteemed Partners
+          .col-md-12
+            .owl-clients.owl-carousel
+              .client-item
+                img(src='/images/services/bmw.jpg' alt='1')
+              .client-item
+                img(src='/images/services/merc.jpg' alt='2')
+              .client-item
+                img(src='/images/services/mist.png' alt='3')
+              .client-item
+                img(src='/images/services/toyota.gif' alt='4')
+              .client-item
+                img(src='/images/services/honda.jpg' alt='5')
+              .client-item
+                img(src='/images/services/must.png' alt='6')
+            p
+              b Swipe
     script(src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js")
     script.

@@ -5,6 +5,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: white;
 }
 p {
 	margin-bottom: 0px;
@@ -91,9 +92,21 @@ a.filled-button:hover {
 }
 
 .contact-heading {
-	background-image: url(../images/homestuff/mustang.jpeg);
+	background-image: url("https://images.unsplash.com/photo-1578999509166-2ba43795234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80");
 }
 
+.profile-heading {
+	background-image: url("https://images.unsplash.com/photo-1478826160983-e6db8c7d537a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80");
+}
+.signup-heading{
+	background-image: url("https://images.unsplash.com/photo-1495837174058-628aafc7d610?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80");
+}
+.order-heading{
+	background-image: url("https://images.unsplash.com/photo-1560073210-1eb8ea89d4cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80");
+}
+.cart-heading{
+	background-image: url("https://images.unsplash.com/photo-1561715276-a2d087060f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80");
+}
 .page-heading {
 	padding: 210px 0px 130px 0px;
 	text-align: center;
@@ -1536,3 +1549,311 @@ footer .inner-content p a {
 .categories_x:hover{
 	color:red;
 }
+
+/* profile */
+.btncool {
+	background-color: #f3cc2f;
+	border-radius: 6px;
+	padding:3%;
+	color:black;
+  }
+  
+  .btncool:hover {  
+	background-color: black;
+	color: #f3cc2f !important;  
+
+  }
+/* updateprofile */
+#id02{
+	padding-left:30%;
+	padding-right: 30%;
+	justify-content: center;
+  }
+  @media screen and (max-width: 991px) {
+	#id02{
+	  padding-left:0;
+	  padding-right: 0;
+	}
+  }
+  #id02 input[type=text], input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  #id02 button {
+	background-color: #00A693;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+  }
+  
+  #id02 button:hover {
+	opacity: 0.8;
+  }
+  
+  /* Extra styles for the cancel button */
+  #id02 .cancelbtn {
+	width: auto;
+	padding: 10px 18px;
+	background-color: #B9134F;  
+  }
+  
+  /* Center the image and position the close button */
+  #id02 .imgcontainer {
+	text-align: center;
+	margin: 24px 0 12px 0;
+	position: relative;
+  }
+  
+  #id02 img.avatar {
+	width: 30%;
+	border-radius: 50%;
+  }
+  
+  #id02 .container {
+	padding: 16px;
+  }
+  
+  #id02 span.psw {
+	float: right;
+	padding-top: 16px;
+  }
+  
+  /* The Modal (background) */
+  .updateprofilemodal {
+	display: none; 
+	position: fixed;
+	z-index: 1; 
+	left: 0;
+	top: 0;
+	width: 100%; 
+	height: 100%;
+	overflow: auto; 
+	background-color: rgb(0,0,0); 
+	background-color: rgba(0,0,0,0.4); 
+	padding-top: 60px;
+  }
+  
+  /* Modal Content/Box */
+  #id02 .modal-content {
+	background-color: #fefefe;
+	margin: 5% auto 15% auto; 
+	border: 1px solid #888;
+	width: 80%; 
+  }
+  /* Add Zoom Animation */
+  #id02 .animate {
+	-webkit-animation: animatezoom 0.6s;
+	animation: animatezoom 0.6s
+  }
+  
+  @-webkit-keyframes animatezoom {
+	from {-webkit-transform: scale(0)} 
+	to {-webkit-transform: scale(1)}
+  }
+	
+  @keyframes animatezoom {
+	from {transform: scale(0)} 
+	to {transform: scale(1)}
+  }
+  
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+	#id02 span.psw {
+	   display: block;
+	   float: none;
+	}
+	#id02 .cancelbtn {
+	   width: 100%;
+	}
+  }
+  /* end */
+  /* mpesa payment */
+  #id03{
+	padding-left:30%;
+	padding-right: 30%;
+	justify-content: center;
+  }
+  @media screen and (max-width: 991px) {
+	#id03{
+	  padding-left:0;
+	  padding-right: 0;
+	}
+  }
+  #id03 input[type=text], input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  #id03 button {
+	background-color: #00A693;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+  }
+  
+  #id03 button:hover {
+	opacity: 0.8;
+  }
+  
+  /* Extra styles for the cancel button */
+  #id03 .cancelbtn {
+	width: auto;
+	padding: 10px 18px;
+	background-color: #B9134F;  
+  }
+  
+  /* Center the image and position the close button */
+  #id03 .imgcontainer {
+	text-align: center;
+	margin: 24px 0 12px 0;
+	position: relative;
+  }
+  
+  #id03 img.avatar {
+	width: 30%;
+	border-radius: 50%;
+  }
+  
+  #id03 .container {
+	padding: 16px;
+  }
+  
+  #id03 span.psw {
+	float: right;
+	padding-top: 16px;
+  }
+  
+  /* The Modal (background) */
+  .paymentmodal {
+	display: none; 
+	position: fixed;
+	z-index: 1; 
+	left: 0;
+	top: 0;
+	width: 100%; 
+	height: 100%;
+	overflow: auto; 
+	background-color: rgb(0,0,0); 
+	background-color: rgba(0,0,0,0.4); 
+	padding-top: 60px;
+  }
+  
+  /* Modal Content/Box */
+  #id03 .modal-content {
+	background-color: #fefefe;
+	margin: 5% auto 15% auto; 
+	border: 1px solid #888;
+	width: 80%; 
+  }
+  /* Add Zoom Animation */
+  #id03 .animate {
+	-webkit-animation: animatezoom 0.6s;
+	animation: animatezoom 0.6s
+  }
+  
+  @-webkit-keyframes animatezoom {
+	from {-webkit-transform: scale(0)} 
+	to {-webkit-transform: scale(1)}
+  }
+	
+  @keyframes animatezoom {
+	from {transform: scale(0)} 
+	to {transform: scale(1)}
+  }
+  
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+	#id03 span.psw {
+	   display: block;
+	   float: none;
+	}
+	#id03 .cancelbtn {
+	   width: 100%;
+	}
+  }
+  /* end */
+  /* signup page     */
+  .pic-ctn {
+	width: 200px;
+	height: 200px;  
+  }
+  
+  @keyframes display {
+	0% {
+	  transform: translateX(200px);
+	  opacity: 0;
+	}
+	10% {
+	  transform: translateX(0);
+	  opacity: 1;
+	}
+	20% {
+	  transform: translateX(0);
+	  opacity: 1;
+	}
+	30% {
+	  transform: translateX(-200px);
+	  opacity: 0;
+	}
+	100% {
+	  transform: translateX(-200px);
+	  opacity: 0;
+	}
+  }
+  
+  .pic-ctn {
+	position: relative;
+	/* width: 100v; */
+	/* height: 300px; */
+	/* margin-top: 15vh; */
+  }
+  
+  .pic-ctn > img {
+	position: absolute;
+	top: 0;
+	left: calc(100% - 100px);
+	opacity: 0;
+	animation: display 10s infinite;  
+  }
+  img:nth-child(2) {
+	animation-delay: 2s;
+  }
+  img:nth-child(3) {
+	animation-delay: 4s;
+  }
+  img:nth-child(4) {
+	animation-delay: 6s;
+  }
+  img:nth-child(5) {
+	animation-delay: 8s;
+  }
+  
+  /* table */
+  table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+  td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+  }    
