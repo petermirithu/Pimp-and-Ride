@@ -21,11 +21,15 @@ To view the site Click [Pimp & Ride.com](https://pimpandride.herokuapp.com/)
 ## Specifications
   * Behaviours
   ```
-  Displays the landing page                     ~ When the app loads on startup.
+  Displays the landing page                     ~When the app loads on startup.
 
-  Display sign in page                          ~ When the sign in button is clicked.
+  Display sign in form                          ~When the sign in button is clicked.
 
   Displays sign up page                         ~When the sign up is clicked.
+
+  Displays About page                           ~When the about button is clicked
+
+  Display Contact us page                       ~When the contact button is clicked
 
   Displays profile page                         ~When profile button is clicked.
 
@@ -33,7 +37,7 @@ To view the site Click [Pimp & Ride.com](https://pimpandride.herokuapp.com/)
 
   Displays a cart.                              ~when one clicks cart button on navbar.
 
-  Displays add to cart page.                    ~When one clicks on add to cart button.
+  Adds to cart.                                 ~When one clicks on add to cart button.
 
   Displays order summary page.                  ~When one clicks on proceed to payment button.
 
