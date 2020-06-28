@@ -38,7 +38,7 @@ block content
               h6="Email: "+user.email                                   
               br
               h6 About You              
-              if profile
+              if profile.about
                   p=profile.about
               else
                   p No About
@@ -47,9 +47,12 @@ block content
         .col-md-12          
           hr      
           h2.text-center Orders      
-          if orders      
+          
+          if orders.length     
+            h6.text-center
+              i="Number of orders placed: "+orders.length     
             for cart in orders              
-              h6="Order: "+cart.id              
+              h6="Order Ref: "+cart.id              
               table
                 tr
                   th Product Name                  
