@@ -11,6 +11,8 @@ var session = require('cookie-session');
 const passport = require('passport');
 var db = require('./models/index');
 var http = require('http')
+require('dotenv').config()
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

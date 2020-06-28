@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var moment = require('moment');
+var bodyParser = require('body-parser');
+require('dotenv').config()
 
 const multer = require('multer');
 const User = require("../models").users;
@@ -222,26 +224,26 @@ router.post('/add/product',upload.single('photo'), async(req, res) => {
       ).catch(error => res.status(400).send(error));                              
 });
 
-
-
 function mpesaauth(req,res,next) {
   let url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
-      
-  let auth = Buffer.from(process.env.MPESA_CONSUMER+":"+process.env.MPESA_SECRET_KEY).toString('base64')  
+  
+  const MPESA_CONSUMER=process.env.MPESA_CONSUMER
+  const MPESA_SECRET_KEY=process.env.MPESA_SECRET_KEY
 
+  let auth = Buffer.from(MPESA_CONSUMER+":"+MPESA_SECRET_KEY).toString('base64')  
   request(
     {
     url:url,
     headers:{
-      "Authorization":"Basic "+auth
+      "Authorization":"Basic "+ auth
     }      
   },
   (error,response,body) => {
     if(error){
       console.log(error)
     }
-    else{
-      req.access_token=JSON.parse(body).access_token
+    else{            
+      req.access_token= JSON.parse(body).access_token      
       next()
     }
   }
@@ -250,7 +252,7 @@ function mpesaauth(req,res,next) {
 
 router.post('/mpesa/stk', mpesaauth, async (req,res) => {
   var hostname = req.headers.host;    
-  let callback = "https://"+hostname+"/shop/betmac_stk_callback"      
+  let callback = "https://"+hostname+"/shop/pimpandride_stk_callback"      
   let oauth_token = req.access_token  
   let endpoint = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
   let auth = "Bearer " + oauth_token;
@@ -277,7 +279,7 @@ router.post('/mpesa/stk', mpesaauth, async (req,res) => {
         "PartyB": "174379",
         "PhoneNumber": mpesaphone,
         "CallBackURL": callback,
-        "AccountReference": "BetmacOrderPayment",
+        "AccountReference": "PimpandRideOrderPayment",
         "TransactionDesc": "Process Activation"
       }
     },
@@ -316,7 +318,7 @@ router.post('/mpesa/stk', mpesaauth, async (req,res) => {
   )
 })
 
-router.post('/betmac_stk_callback', async (req,res) => {
+router.post('/pimpandride_stk_callback', async (req,res) => {
   // amount=req.body.stkCallback.CallbackMetadata.Item[0].Value
       
   let resultcode = req.body.stkCallback.ResultCode
