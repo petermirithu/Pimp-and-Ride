@@ -13,6 +13,9 @@ var db = require('./models/index');
 var http = require('http')
 require('dotenv').config()
 const Mpesa = require('mpesa-node')
+const Rox = require('rox-node');
+
+
 
 
 var routes = require('./routes/index');
@@ -64,6 +67,36 @@ app.use('/shop',shop);
 // passport config
 require('./config/passport')(passport);
 
+// deploy nodejs jistu
+const flags = {
+    enableTutorial: new Rox.Flag(),
+    titleColors: new Rox.Variant('White', ['White', 'Blue', 'Green', 'Yellow']),
+  };
+  
+  async function initRollout() {
+    const options = { };
+  
+    // Register the flags
+    Rox.register('', flags);
+  
+    // Setup the key
+    await Rox.setup(process.env.NODEJISTU_KEY, options);
+  
+    // Boolean flag example
+    if (flags.enableTutorial.isEnabled()) {
+      console.log('enableTutorial flag is true');
+      // TODO:  Put your code here that needs to be gated
+    }
+  
+    // Multivariate flag example
+    console.log('Title color is ' + flags.titleColors.getValue());
+  }
+  
+  initRollout().then(function() {
+    console.log('Done loading Rollout');
+  });
+  
+// end
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

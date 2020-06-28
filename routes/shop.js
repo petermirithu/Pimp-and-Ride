@@ -317,7 +317,7 @@ router.post('/mpesa/stk',isAuthenticated, async (req,res) => {
     console.log("**********************************************************")
     console.log(error)
     console.log("**********************************************************")
-    req.flash('error','Request not sent. Please check your Internet connection or make sure your number is in the formart 2547*********'+MPESA_SECRET_KEY),
+    req.flash('error','Request not sent. Please check your Internet connection or make sure your number is in the formart 2547*********'),
     res.redirect('/')   
   })  
 })

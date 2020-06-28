@@ -29,6 +29,7 @@
     "pg-hstore": "^2.3.3",
     "pug": "^3.0.0",
     "request": "^2.88.2",
+    "rox-node": "^4.9.7",
     "sequelize": "^5.21.11",
     "static-favicon": "~1.0.0"
   },
