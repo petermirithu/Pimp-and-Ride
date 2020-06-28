@@ -1,3 +1,5 @@
+![Codeship Status](https://app.codeship.com/projects/76093c70-9b8c-0138-6753-52ae54c5d4f8/status?branch=master)
+
 ![CloudBees Rollout](https://1ko9923xosh2dsbjsxpwqp45-wpengine.netdna-ssl.com/wp-content/themes/rollout/images/rollout_white_logo1.png)
 
 [![Integration status](https://app.rollout.io/badges/5ef8c377260c4f1a91db5d71)](https://app.rollout.io/app/5ef8c1c6fcc327bba8cea8a8/settings/info)
