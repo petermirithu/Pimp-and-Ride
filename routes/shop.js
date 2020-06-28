@@ -248,7 +248,7 @@ function mpesaauth(req,res,next) {
         next()
       }   
       else{
-        req.flash('error','Authenctication failed. Please try again to pay. If problem persists inform us.'),
+        req.flash('error','Authentication failed. Please try again to pay. If problem persists inform us.'),
         res.redirect('/shop/ordersummary')                                       
       }
     }
