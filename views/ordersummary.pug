@@ -50,7 +50,7 @@ block content
                             br
                             input.btn.btn-primary(type='submit',value='Submit')                                                             
                     hr              
-                    h4 Payment Methods Available
+                    h4 Payment Methods Available                    
                     img(src="/images/mpesa.png" alt="logo" style="border-radius:50%" width="100px")                                  
                     a.btn.btn-warning(accesskey="5" style="cursor:pointer" onclick="document.getElementById('id03').style.display='block'" title="Mpesa Payment") Proceed to mpesa payment
                     
@@ -65,7 +65,8 @@ block content
                                     p(style="color:red") N/B: This is a showcase site which uses a sandbox mpesa payment. You will be charged ksh 1 for testing which will be refunded at midnight the following day.
                                     label(for="phone") 
                                         b Phone Number
-                                    input.form-control(type="number" name="phone" placeholder="Enter your Safaricom line number for payment" required)                                                                                            
+                                    p In the order 2547*********    
+                                    input.form-control(type="number" name="phone" placeholder="Enter your Safaricom line number" required)                                                                                            
                                                                                                                                                                                          
                                 else  
                                     div.alert.alert-danger.text-center You have not added anything in your cart. Please shop!                                                             
