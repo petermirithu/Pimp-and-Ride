@@ -4,6 +4,7 @@ var request = require('request');
 var moment = require('moment');
 var bodyParser = require('body-parser');
 require('dotenv').config()
+const Mpesa = require('mpesa-node')
 
 const multer = require('multer');
 const User = require("../models").users;
@@ -25,19 +26,19 @@ const storage = multer.diskStorage({
 var upload = multer({storage: storage})
 
 
-router.use( function isAuthenticated(req, res, next) {
+function isAuthenticated(req, res, next) {
   if (req.user){
     return next();      
   }
   else{
     req.session.redirectTo = req.originalUrl; 
     req.flash('success','Please Sign In if you have an Account'),            
-    res.redirect('/users/signup');    
+    res.redirect('/users/signup');     
   }
-})
+}
 
 // gets******************************************************************************
-router.get('/form', async(req, res) => {
+router.get('/form',isAuthenticated, async(req, res) => {
     let category = await Category.findAll()
     let cart = await Cart.findOne(
       {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
@@ -45,7 +46,7 @@ router.get('/form', async(req, res) => {
     res.render('prodpost', { title: 'Post',category:category,cart:cart});
 });
 
-router.get('/cartform/:id', async(req, res) => {  
+router.get('/cartform/:id',isAuthenticated, async(req, res) => {  
   let product = await Product.findByPk(req.params.id,{include: [{model: Category,as: 'Category',}]})  
   let cart = await Cart.findOne(
     {include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
@@ -54,7 +55,7 @@ router.get('/cartform/:id', async(req, res) => {
   res.render('addtocart', { title: 'Update Cart',product:product,cart:cart,item:item});
 });
 
-router.get('/ordersummary', async(req, res) => {    
+router.get('/ordersummary',isAuthenticated, async(req, res) => {    
   let cart = await Cart.findOne(
     {include: [{model:Delivery,as:'Delivery'},{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
       where:{userId:req.user.id,ordered:false}})        
@@ -63,7 +64,7 @@ router.get('/ordersummary', async(req, res) => {
   res.render('ordersummary', { title: 'Order Summary',cart:cart,deliveries:deliveries});
 });
 
-router.get('/remove/from/cart/:id', async(req, res) => {  
+router.get('/remove/from/cart/:id',isAuthenticated, async(req, res) => {  
   let product = await Product.findByPk(req.params.id)    
   let usercart = await Cart.findOne({where: {userId:req.user.id,ordered:false}})  
   let orderitem = await Order.findOne({where:{productId:req.params.id,cartId:usercart.id,paid:false}})  
@@ -79,7 +80,7 @@ router.get('/remove/from/cart/:id', async(req, res) => {
   res.redirect('/')                                      
 });
 
-router.get('/remove/delivery/:id', async(req, res) => {  
+router.get('/remove/delivery/:id',isAuthenticated, async(req, res) => {  
   let place = await Delivery.findByPk(req.params.id)    
   let usercart = await Cart.findOne({where: {userId: req.user.id,ordered:false}})  
 
@@ -93,7 +94,7 @@ router.get('/remove/delivery/:id', async(req, res) => {
 
 
 // posts******************************************************************************
-router.post('/update/item/cart/', async function(req, res) {
+router.post('/update/item/cart/',isAuthenticated, async function(req, res) {
   var product = await Product.findByPk(req.body.productId)
   let usercart = await Cart.findOne({where: {userId: req.user.id,ordered:false}})  
   let orderitem = await Order.findOne({where: {cartId: usercart.id,productId:product.id,paid:false}})  
@@ -134,21 +135,27 @@ router.post('/update/item/cart/', async function(req, res) {
   }
 });
 
-router.post('/update/cart/', async function(req, res) {
-  let place = await Delivery.findByPk(req.body.deliveryId)    
-  let usercart = await Cart.findOne({where: {userId: req.user.id,ordered:false}})  
-
-  let sum=parseInt(place.cost)+parseInt(usercart.total)
-
-  usercart.total=sum
-  usercart.deliveryId=place.id
-  usercart.save()
-
-  req.flash('success','Succesfuly added a delivery place to your order')
-  res.redirect('/shop/ordersummary')                                          
+router.post('/update/cart/',isAuthenticated, async function(req, res) {
+  if (req.body.deliveryId==0){
+    req.flash('error','Select a delivery place first!')
+    res.redirect('/shop/ordersummary')                                          
+  }
+  else{
+    let place = await Delivery.findByPk(req.body.deliveryId)    
+    let usercart = await Cart.findOne({where: {userId: req.user.id,ordered:false}})  
+  
+    let sum=parseInt(place.cost)+parseInt(usercart.total)
+  
+    usercart.total=sum
+    usercart.deliveryId=place.id
+    usercart.save()
+  
+    req.flash('success','Succesfuly added a delivery place to your order')
+    res.redirect('/shop/ordersummary')                                          
+  }
 });
 
-router.get('/add/to/cart/:id', async(req, res) => {    
+router.get('/add/to/cart/:id',isAuthenticated, async(req, res) => {    
   var product = await Product.findByPk(req.params.id)
 
   let existingcart = await Cart.findOne({include: [{model: Order,as: 'Cart',include: [{model:Product,as:'Product'}]}],
@@ -194,7 +201,7 @@ router.get('/add/to/cart/:id', async(req, res) => {
   }  
 });
 
-router.post('/add/category', function(req, res) {
+router.post('/add/category',isAuthenticated, function(req, res) {
     const name = req.body.name;  
     return Category.create({ name:name}).then(
         req.flash('success','Added a Category'),
@@ -202,7 +209,7 @@ router.post('/add/category', function(req, res) {
       ).catch(error => res.status(400).send(error));                  
 });
 
-router.post('/add/delivery', function(req, res) {
+router.post('/add/delivery',isAuthenticated, function(req, res) {
   const name = req.body.name;  
   const cost = req.body.cost;  
   return Delivery.create({ name:name, cost:cost}).then(
@@ -211,7 +218,7 @@ router.post('/add/delivery', function(req, res) {
     ).catch(error => res.status(400).send(error));                  
 });
 
-router.post('/add/product',upload.single('photo'), async(req, res) => {
+router.post('/add/product',upload.single('photo'),isAuthenticated, async(req, res) => {
     const name = req.body.name;  
     const image = req.file.filename
     const price = req.body.price;  
@@ -224,109 +231,98 @@ router.post('/add/product',upload.single('photo'), async(req, res) => {
       ).catch(error => res.status(400).send(error));                              
 });
 
-function mpesaauth(req,res,next) {
-  let url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
+// function mpesaauth(req,res,next) {
+//   let url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
   
+//   const MPESA_CONSUMER=process.env.MPESA_CONSUMER
+//   const MPESA_SECRET_KEY=process.env.MPESA_SECRET_KEY
+
+//   let auth = Buffer.from(MPESA_CONSUMER+":"+MPESA_SECRET_KEY).toString('base64')  
+//   request(
+//     {
+//     url:url,
+//     headers:{
+//       "Authorization":"Basic "+ auth
+//     }      
+//   },
+//   (error,response,body) => {
+//     if(error){
+//       console.log(error)
+//     }
+//     else{         
+//       if (body){
+//         mpesa.
+//         req.access_token= JSON.parse(body).access_token      
+//         next()
+//       }   
+//       else{
+//         req.flash('error','Authentication failed. Please try again to pay. If problem persists inform us.'),
+//         res.redirect('/shop/ordersummary')                                       
+//       }
+//     }
+//   }
+//   )
+// }
+
+router.post('/mpesa/stk',isAuthenticated, async (req,res) => {
+
   const MPESA_CONSUMER=process.env.MPESA_CONSUMER
   const MPESA_SECRET_KEY=process.env.MPESA_SECRET_KEY
 
-  let auth = Buffer.from(MPESA_CONSUMER+":"+MPESA_SECRET_KEY).toString('base64')  
-  request(
-    {
-    url:url,
-    headers:{
-      "Authorization":"Basic "+ auth
-    }      
-  },
-  (error,response,body) => {
-    if(error){
-      console.log(error)
-    }
-    else{         
-      if (body){
-        req.access_token= JSON.parse(body).access_token      
-        next()
-      }   
-      else{
-        req.flash('error','Authentication failed. Please try again to pay. If problem persists inform us.'),
-        res.redirect('/shop/ordersummary')                                       
-      }
-    }
-  }
-  )
-}
-
-router.post('/mpesa/stk', mpesaauth, async (req,res) => {
   var hostname = req.headers.host;    
-  let callback = "https://"+hostname+"/shop/pimpandride_stk_callback"      
-  let oauth_token = req.access_token  
-  let endpoint = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
-  let auth = "Bearer " + oauth_token;
-  
-  let timestamp = moment().format('YYYYMMDDHHmmss')  
+  const callback = "https://"+hostname+"/shop/pimpandride_stk_callback"      
+  let numberphone=req.body.phone
+  const mpesaphone =numberphone.toString() 
+  let timestamp = moment().format('YYYYMMDDHHmmss')     
+
+  const mpesaApi = new Mpesa({consumerKey:MPESA_CONSUMER,consumerSecret:MPESA_SECRET_KEY})
+  const {    
+    lipaNaMpesaOnline,
+    lipaNaMpesaQuery,    
+    transactionStatus 
+  } = mpesaApi
+
   const password= Buffer.from("174379"+process.env.MPESA_AUTH+timestamp).toString('base64')
 
-  let numberphone=req.body.phone
-  const mpesaphone =numberphone.toString()    
-  request(
-    {
-      url: endpoint,
-      method: "POST",
-      headers: {
-        "Authorization": auth
-      },
-      json : {
-        "BusinessShortCode": "174379",
-        "Password": password,
-        "Timestamp": timestamp,
-        "TransactionType": "CustomerPayBillOnline",
-        "Amount": "1",
-        "PartyA": mpesaphone,
-        "PartyB": "174379",
-        "PhoneNumber": mpesaphone,
-        "CallBackURL": callback,
-        "AccountReference": "Pimp and Ride Order Payment",
-        "TransactionDesc": "Process Activation"
-      }
-    },
-    async function(error,response,body){
-      if(error){        
-        res.status(400).send(error);                              
-      }            
-      let resultcode = body.ResponseCode
-
-      if(resultcode==0){
-        let merchant_id = body.MerchantRequestID
-        let usercart = await Cart.findOne({where: {userId: req.user.id,ordered:false}})            
-        usercart.MerchantRequestID=merchant_id        
-        
-        // usercart.save()   
-
-        //update cart         
-        usercart.paymentmethod="Mpesa"
-        usercart.ordered=true
-        usercart.phoneno=mpesaphone
-                                    
-        let orderupdate= await Order.update({ paid : true },{ where : { cartId : usercart.id,paid:false }});        
-
-        usercart.save()    
-        // update cart end
-        
-        req.flash('success','Request accepted for processing. Please check your phone for password prompt.'),
-        res.redirect('/')                                       
-      }
-      else{
-        req.flash('error','There was a problem sending your request. Please contact the Business Owner.'),
-        res.redirect('/')                                       
-      }      
-      // res.status(200).json(body)
+  const testMSISDN = mpesaphone
+  const amount = 1
+  const accountRef = "Pimp and Ride Order Payment"
+  const transactionDesc = 'Lipa na mpesa online'
+  const transactionType = 'CustomerPayBillOnline'
+  const shortCode = "174379" 
+  const passKey = process.env.MPESA_AUTH
+  
+  mpesaApi.lipaNaMpesaOnline(testMSISDN, amount, callback, accountRef,transactionDesc,transactionType,shortCode,passKey).then( async (result)=> {    
+    const resultcode=result.data.ResponseCode
+    const MerchantID=result.data.MerchantRequestID    
+    if(resultcode==0){
+      let merchant_id = MerchantID
+      let usercart = await Cart.findOne({where: {userId: req.user.id,ordered:false}})            
+      //update cart         
+      usercart.MerchantRequestID=merchant_id                     
+      usercart.paymentmethod="Mpesa"
+      usercart.ordered=true
+      usercart.phoneno=mpesaphone                                  
+      let orderupdate= await Order.update({ paid : true },{ where : { cartId : usercart.id,paid:false }});        
+      usercart.save()          
+      req.flash('success','Request accepted for processing. Please check your phone for password prompt.'),
+      res.redirect('/')  
     }
-  )
+    else{
+      req.flash('error','Request not sent. Please check your Internet connection or make sure your number is in the formart 2547*********'),
+      res.redirect('/')                                       
+    }       
+
+  }).catch((error) => {
+    console.log(error)
+    req.flash('error','Request not sent. Please check your Internet connection or make sure your number is in the formart 2547*********'),
+    res.redirect('/')   
+  })  
 })
 
 router.post('/pimpandride_stk_callback', async (req,res) => {
   // amount=req.body.stkCallback.CallbackMetadata.Item[0].Value
-      
+
   let resultcode = req.body.stkCallback.ResultCode
   if(resultcode==0){
 
@@ -337,7 +333,10 @@ router.post('/pimpandride_stk_callback', async (req,res) => {
     res.status(200)
   }
   else{
-    res.status(400).send(error);                              
+    console.log("**********************************")
+    console.log("Error processing callback")
+    console.log("**********************************")
+    res.status(400) 
   }  
 })
 
