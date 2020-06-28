@@ -309,12 +309,14 @@ router.post('/mpesa/stk',isAuthenticated, async (req,res) => {
       res.redirect('/')  
     }
     else{
-      req.flash('error','Request not sent. Please check your Internet connection or make sure your number is in the formart 2547*********'),
+      req.flash('error','Request not sent. Make sure your number is in the formart 2547*********'),
       res.redirect('/')                                       
     }       
 
   }).catch((error) => {
+    console.log("**********************************************************")
     console.log(error)
+    console.log("**********************************************************")
     req.flash('error','Request not sent. Please check your Internet connection or make sure your number is in the formart 2547*********'),
     res.redirect('/')   
   })  
@@ -322,7 +324,9 @@ router.post('/mpesa/stk',isAuthenticated, async (req,res) => {
 
 router.post('/pimpandride_stk_callback', async (req,res) => {
   // amount=req.body.stkCallback.CallbackMetadata.Item[0].Value
-
+  console.log("________________________________")
+  console.log(req.body.stkCallback)
+  console.log("________________________________")
   let resultcode = req.body.stkCallback.ResultCode
   if(resultcode==0){
 
