@@ -12,6 +12,7 @@ const passport = require('passport');
 var db = require('./models/index');
 var http = require('http')
 require('dotenv').config()
+const Mpesa = require('mpesa-node')
 
 
 var routes = require('./routes/index');
