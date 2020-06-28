@@ -119,7 +119,7 @@ router.post('/register',function(req,res){
         }               
         const hashedpwd=hash
         return User.create({ username:username, email:email, password:hashedpwd}).then(
-          req.flash('success','You are now registered and can Log in'),
+          req.flash('success','You are now registered and can Log in for verification purpose.'),
           res.redirect('/')                                      
         );                          
       })
