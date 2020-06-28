@@ -242,9 +242,15 @@ function mpesaauth(req,res,next) {
     if(error){
       console.log(error)
     }
-    else{            
-      req.access_token= JSON.parse(body).access_token      
-      next()
+    else{         
+      if (body){
+        req.access_token= JSON.parse(body).access_token      
+        next()
+      }   
+      else{
+        req.flash('error','Authenctication failed. Please try again to pay. If problem persists inform us.'),
+        res.redirect('/shop/ordersummary')                                       
+      }
     }
   }
   )
@@ -279,7 +285,7 @@ router.post('/mpesa/stk', mpesaauth, async (req,res) => {
         "PartyB": "174379",
         "PhoneNumber": mpesaphone,
         "CallBackURL": callback,
-        "AccountReference": "PimpandRideOrderPayment",
+        "AccountReference": "Pimp and Ride Order Payment",
         "TransactionDesc": "Process Activation"
       }
     },
