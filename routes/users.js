@@ -27,7 +27,7 @@ function isAuthenticated(req, res, next) {
   else{
     req.session.redirectTo = req.originalUrl; 
     req.flash('success','Please Sign In if you have an Account'),            
-    res.redirect('/users/signup');     
+    res.redirect('/signup');     
   }
 }
 
