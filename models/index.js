@@ -17,7 +17,12 @@ if (!global.hasOwnProperty('db')){
       protocol: 'postgres',
       port:     5000,
       host:     "heroku host",
-      logging:  true 
+      dialectOptions: {
+        ssl: {
+          require: true, 
+          rejectUnauthorized: false
+        }
+      }, 
     })
 
   } else {
