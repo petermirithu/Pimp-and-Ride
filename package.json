@@ -45,6 +45,6 @@
     "npm": "6.14.5"
   },
   "devDependencies": {
-    "nodeshift": "^6.2.0"
+    "nodeshift": "^8.7.0"
   }
 }
